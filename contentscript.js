@@ -1,15 +1,16 @@
 // API calls to get exchange rates
 
-// add new invisible text box at the end of page
+if (document.body != null) {
+	console.log('Creating exchange box now...');
+	// add new invisible text box at the end of page
+	var exchangeBoxEl = document.createElement('div');
+	var exchangeBoxStr = '<div id="xchangeBox"><span class="intro" id="name">Currency box here!</span></div>';
+	exchangeBoxEl.innerHTML = exchangeBoxStr;
+	document.body.appendChild(exchangeBoxEl.firstChild);	
 
-// when hover over a money amount, make text box visible
-document.onload = function() {
-	console.log('loading...');
-	if (document.body != null) {
-		var exchangeValues = document.createElement("div"); 
-		exchangeValues.textContent('viet dao');
-	    document.body.appendChild(exchangeValues);
-	}
+	// if element hovered over is a money amount, make text box visible at mouse pointer
+	// $("#moneyAmount").mouseover(function() {
+		// calculate currency amounts and display
+    	// $("#xchangeBox").css( "display", "block" );
+	// });
 }
-
-// if some currency is enabled, use exchange rate to calculate

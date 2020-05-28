@@ -4,13 +4,14 @@
   "description": "Convert between currencies on hover with current exchange rates",
   "permissions": ["activeTab", "storage", "declarativeContent"],
   "background": {
-    "scripts": ["background.js"],
+    "scripts": ["jquery-3.5.1.min.js", "background.js"],
     "persistent": false
   },
   "content_scripts": [
     {
       "matches": ["*://*/*"],
-      "js": ["contentscript.js"]
+      "css": ["css/styles.css"],
+      "js": ["jquery-3.5.1.min.js", "contentscript.js"]
     }
   ],
   "page_action": {

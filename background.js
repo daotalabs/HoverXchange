@@ -11,3 +11,5 @@ chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
         actions: [new chrome.declarativeContent.ShowPageAction()]
     }]);
 });
+
+// listen for hover events
