@@ -9,8 +9,15 @@ if (document.body != null) {
 	document.body.appendChild(exchangeBoxEl.firstChild);	
 
 	// if element hovered over is a money amount, make text box visible at mouse pointer
-	// $("#moneyAmount").mouseover(function() {
-		// calculate currency amounts and display
-    	// $("#xchangeBox").css( "display", "block" );
-	// });
+	// if hover over an element containing $
+	$(":contains('$'):not(:has(:contains('$')))").hover(function() {
+		// grab the dollar amount and calculate
+		console.log($(this).text());
+		console.log('Attempting to display box now..');
+		// insert calculated amount to exchange box
+		// display box at mouse pointer
+		$("#xchangeBox").css( "display", "block" );
+  		}, function() {
+  			$("#xchangeBox").css( "display", "none" )
+  		});
 }
