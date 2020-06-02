@@ -22,6 +22,22 @@ fx.rates = {
 
 if (document.body != null) {
 	// if element hovered over is a money amount, make text box visible at mouse pointer
+
+	/* CURRENCY SEARCH:
+	if page is USD:
+		if innermost element has $..
+		if innermost element has only number + immediate outer element has only $
+			then get amount
+	similarly,
+	if page is CAD:
+		if innermost element has $../C$../CAD../CAD$..
+		if innermost element has only number + immediate outer element has only $/C$/CAD/CAD$
+			then get amount
+	if page is VND:
+		if innermost element has ₫../VND../..₫
+		if innermost element has only number + immediate outer element has only ₫/VND
+			then get amount
+	*/
 	$(":contains('$'):not(:has(:contains('$')))").hover(function() { // HACK: if hover over an element containing $
 			// grab the dollar amount and calculate
 			var amountUSD = accounting.unformat($(this).text());
