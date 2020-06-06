@@ -1,5 +1,3 @@
-// API calls to get exchange rates
-
 // get mouse pointer position
 var mouseX;
 var mouseY;
@@ -8,19 +6,67 @@ $(document).mousemove(function(e) {
 	mouseY = e.pageY + 15;
 });
 
+/* Determine which currency the page is in
+	VND: domain .vn, detect Vietnamese, url has /vn/
+	CAD: domain .ca, url has /ca/
+	USD: default
+*/
 var baseCurrency = 'USD'; // this will be determined on domains, etc.
 var xCurrencies = ['CAD', 'VND'] // this will be choosen on popup.html or by default
 
-// dynamically get exchange rates
-// cache daily rates so that only calls API once a day
-fx.base = "USD";
+fx.base = baseCurrency;
+// get rates from storage
 fx.rates = {
 	"CAD" : 1.4, 
 	"VND" : 23281.5,
 	"USD" : 1,        // always include the base rate (1:1)
 }
 
-if (document.body != null) {
+createCurrencyBox();
+
+function createCurrencyBox() {
+	if (document.body == null) {
+		return;
+	}
+	if (fx.base == 'USD') {
+		$(":contains('$'):not(:has(:contains('$')))").hover(function() { // HACK: if hover over an element containing $
+				// grab the dollar amount and calculate
+				var amountUSD = accounting.unformat($(this).text());
+				var amountCAD = fx.convert(amountUSD, {from: 'USD', to: 'CAD'});
+				var amountVND = fx.convert(amountUSD, {from: 'USD', to: 'VND'});
+
+				// create xchange box element
+				var exchangeBoxEl = document.createElement('div');
+				var exchangeBoxStr = "<div id='xchangeBox'>" +
+										"<span id='currency1' class='currency'>" +
+											// insert calculated amount to exchange box
+											accounting.formatMoney(amountCAD,[symbol = "C$"],[precision = 2],[thousand = ","],[decimal = "."],[format = "%s%v"]) +
+										"</span>" +
+										"<br>" +
+										"<span id='currency2' class='currency'>" + 
+											accounting.formatMoney(amountVND,[symbol = "₫"],[precision = 0],[thousand = ","],[decimal = "."],[format = "%s%v"]) +
+										"</span>" +
+									"</div>";	
+				exchangeBoxEl.innerHTML = exchangeBoxStr;
+				// add new invisible text box at the end of page
+				document.body.appendChild(exchangeBoxEl.firstChild);
+				// display box at mouse pointer
+				console.log("Creating box with CAD " + amountCAD + " and VND " + amountVND);
+				$("#xchangeBox").css('top', mouseY + 'px');
+				$("#xchangeBox").css('left', mouseX + 'px');
+				$("#xchangeBox").css('display', 'block');
+	  		}, function() {
+	  			$('#xchangeBox').remove();
+	  		});	
+	}
+	if (fx.base == 'CAD') {
+
+	}	
+	if (fx.base == 'VND') {
+
+	}
+}
+// if (document.body != null) {
 	// if element hovered over is a money amount, make text box visible at mouse pointer
 
 	/* CURRENCY SEARCH:
@@ -38,32 +84,40 @@ if (document.body != null) {
 		if innermost element has only number + immediate outer element has only ₫/VND
 			then get amount
 	*/
-	$(":contains('$'):not(:has(:contains('$')))").hover(function() { // HACK: if hover over an element containing $
-			// grab the dollar amount and calculate
-			var amountUSD = accounting.unformat($(this).text());
-			var amountCAD = fx.convert(amountUSD, {from: 'USD', to: 'CAD'});
-			var amountVND = fx.convert(amountUSD, {from: 'USD', to: 'VND'});
+	// if (fx.base == 'USD') {
+	// 	$(":contains('$'):not(:has(:contains('$')))").hover(function() { // HACK: if hover over an element containing $
+	// 			// grab the dollar amount and calculate
+	// 			var amountUSD = accounting.unformat($(this).text());
+	// 			var amountCAD = fx.convert(amountUSD, {from: 'USD', to: 'CAD'});
+	// 			var amountVND = fx.convert(amountUSD, {from: 'USD', to: 'VND'});
 
-			// create xchange box element
-			var exchangeBoxEl = document.createElement('div');
-			var exchangeBoxStr = "<div id='xchangeBox'>" +
-									"<span id='currency1' class='currency'>" +
-										// insert calculated amount to exchange box
-										accounting.formatMoney(amountCAD,[symbol = "C$"],[precision = 2],[thousand = ","],[decimal = "."],[format = "%s%v"]) +
-									"</span>" +
-									"<br>" +
-									"<span id='currency2' class='currency'>" + 
-										accounting.formatMoney(amountVND,[symbol = "₫"],[precision = 0],[thousand = ","],[decimal = "."],[format = "%s%v"]) +
-									"</span>" +
-								"</div>";	
-			exchangeBoxEl.innerHTML = exchangeBoxStr;
-			// add new invisible text box at the end of page
-			document.body.appendChild(exchangeBoxEl.firstChild);
-			// display box at mouse pointer
-			$("#xchangeBox").css('top', mouseY + 'px');
-			$("#xchangeBox").css('left', mouseX + 'px');
-			$("#xchangeBox").css('display', 'block');
-  		}, function() {
-  			$('#xchangeBox').remove();
-  		});		
-}
+	// 			// create xchange box element
+	// 			var exchangeBoxEl = document.createElement('div');
+	// 			var exchangeBoxStr = "<div id='xchangeBox'>" +
+	// 									"<span id='currency1' class='currency'>" +
+	// 										// insert calculated amount to exchange box
+	// 										accounting.formatMoney(amountCAD,[symbol = "C$"],[precision = 2],[thousand = ","],[decimal = "."],[format = "%s%v"]) +
+	// 									"</span>" +
+	// 									"<br>" +
+	// 									"<span id='currency2' class='currency'>" + 
+	// 										accounting.formatMoney(amountVND,[symbol = "₫"],[precision = 0],[thousand = ","],[decimal = "."],[format = "%s%v"]) +
+	// 									"</span>" +
+	// 								"</div>";	
+	// 			exchangeBoxEl.innerHTML = exchangeBoxStr;
+	// 			// add new invisible text box at the end of page
+	// 			document.body.appendChild(exchangeBoxEl.firstChild);
+	// 			// display box at mouse pointer
+	// 			$("#xchangeBox").css('top', mouseY + 'px');
+	// 			$("#xchangeBox").css('left', mouseX + 'px');
+	// 			$("#xchangeBox").css('display', 'block');
+	//   		}, function() {
+	//   			$('#xchangeBox').remove();
+	//   		});	
+	// }
+	// if (fx.base == 'CAD') {
+
+	// }	
+	// if (fx.base == 'VND') {
+
+	// }
+// }
