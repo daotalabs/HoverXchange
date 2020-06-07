@@ -2,12 +2,21 @@ chrome.runtime.onInstalled.addListener(function() {
     console.log("xchange_xtension installation completed.");
 });
 
+chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
+    chrome.declarativeContent.onPageChanged.addRules([{
+    	conditions: [new chrome.declarativeContent.PageStateMatcher({
+          pageUrl: {hostContains: "."},
+        })],
+        actions: [new chrome.declarativeContent.ShowPageAction()]
+    }]);
+});
+
+/*
+	Listen for tab updates, get and update exchange rates in Chrome sync storage. 
+*/
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-	// If local/sync storage has current rates, skip API calls
-	console.log('tab updated: #' + tabId);
 	if (changeInfo.status == 'complete' && tab.active) {
 		var ratesData = 'sample';
-		console.log('checking storage..');
 		chrome.storage.sync.get(null, function(items) {
 		    var allKeys = Object.keys(items);
 		    console.log('current storage: ' + allKeys);
@@ -21,28 +30,14 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 						base: 'USD'
 					}, 
 					function(response) {
-						ratesData = JSON.stringify(response);
 		    			console.log("1 US Dollar equals " + response.rates.GBP + " British Pounds");
 		    			chrome.storage.sync.set({'current_rates': response}, function() {
-							console.log('Saving current rates..' + ratesData);
+							console.log('Saving current rates..' + JSON.stringify(response));
 						})
 					});
 			} else {
-				console.log('Value currently is ' + value.current_rates.toString());
+				console.log('Value currently is ' + JSON.stringify(value));
 			}
 	    });
 	}
-	// API calls to get exchange rates
-
-	// Save rates to storage
-	
 })
-
-chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-    chrome.declarativeContent.onPageChanged.addRules([{
-    	conditions: [new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {hostContains: "."},
-        })],
-        actions: [new chrome.declarativeContent.ShowPageAction()]
-    }]);
-});
