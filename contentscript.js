@@ -53,22 +53,26 @@ function createCurrencyBox() {
 	if (websiteCurrency == 'USD') {
 		/* CURRENCY SEARCH:
 		if page is USD:
-			if innermost element has $..
-			if innermost element has only number + immediate outer element has only $
+			if innermost element has $(number) or $(number) surrounded by non-integer characters
+			[later] if innermost element has only number + immediate outer element has only $
 				then get amount
 		similarly,
 		if page is CAD:
-			if innermost element has $../C$../CAD../CAD$..
-			if innermost element has only number + immediate outer element has only $/C$/CAD/CAD$
+			if innermost element has $../C$../CAD../CAD$.. or $(number) surrounded by non-integer characters
+			[later] if innermost element has only number + immediate outer element has only $/C$/CAD/CAD$
 				then get amount
 		if page is VND:
-			if innermost element has ₫../VND../..₫
-			if innermost element has only number + immediate outer element has only ₫/VND
+			if innermost element has ₫../VND../..₫ or ₫(number)/(number)₫ surrounded by non-integer characters
+			[later] if innermost element has only number + immediate outer element has only ₫/VND
 				then get amount
 		*/
-		$(":contains('$'):not(:has(:contains('$')))").hover(function() { // HACK: if hover over an element containing $
+		var regex = /^[^0-9]*-?\$-?\s?(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?[^0-9]*$/i; 
+		$(":contains('$'):not(:has(:contains('$')))").filter(function() {
+			return regex.test($(this).text());
+		}).hover(function() {
 				// grab the dollar amount and calculate
 				var amountUSD = accounting.unformat($(this).text());
+				console.log(amountUSD + '; regex tested: ' + $(this).text());
 				var amountCAD = fx.convert(amountUSD, {from: 'USD', to: 'CAD'});
 				var amountVND = fx.convert(amountUSD, {from: 'USD', to: 'VND'});
 
@@ -100,7 +104,7 @@ function createCurrencyBox() {
 
 	}	
 	if (websiteCurrency == 'VND') {
-
+		accounting.unformat("€ 1.000.000,00", ","); // 1000000
 	}
 }
 
