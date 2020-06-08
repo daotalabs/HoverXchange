@@ -22,15 +22,14 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 		    console.log('current storage: ' + allKeys);
 		});
 		chrome.storage.sync.get('current_rates', function(value) {
-			if (value.current_rates == null) {
-				console.log('getting current rates..')
+			if (value.current_rates == null || isRatesExpired(value)) {
+				console.log('getting current rates..' + isRatesExpired(value));
 				$.get('https://openexchangerates.org/api/latest.json', 
 					{
 						app_id: '68286f83188a46c696bff70ab8df2dce', 
 						base: 'USD'
 					}, 
 					function(response) {
-		    			console.log("1 US Dollar equals " + response.rates.GBP + " British Pounds");
 		    			chrome.storage.sync.set({'current_rates': response}, function() {
 							console.log('Saving current rates..' + JSON.stringify(response));
 						})
@@ -42,6 +41,19 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 	}
 })
 
+/*
+	Helper function to check if current_rates in storage is old.
+*/
+function isRatesExpired(value) {
+	if (value.current_rates == null || value.current_rates.timestamp == null) {
+		return true;
+	}
+	var currentRatesDate = new Date(value.current_rates.timestamp * 1000);
+	var currentDate = new Date();
+	currentDate.setHours(0,0,0,0);
+	console.log('currentRatesDate: ' + currentRatesDate + ' , currentDate: ' + currentDate);
+	return (currentRatesDate < currentDate);
+}
 /*
 	Example message listener.
 */
