@@ -11,10 +11,23 @@ $(document).mousemove(function(e) {
 	CAD: domain .ca, url has /ca/
 	USD: default
 */
-var websiteCurrency = 'USD'; // this will be determined on domains, etc.
+var websiteCurrency = 'USD';
 var xCurrencies = ['CAD', 'VND'] // this will be choosen on popup.html or by default
 
-getExchangeRates();
+getWebsiteCurrency();
+
+function getWebsiteCurrency() {
+	var currentTabUrl = document.location.href;
+	console.log('currentTabUrl: ' + currentTabUrl);
+	if (currentTabUrl.includes('.ca') || currentTabUrl.includes('.ca/') || currentTabUrl.includes('/ca/')) {
+		websiteCurrency = 'CAD';
+	}
+	if (currentTabUrl.includes('.vn') || currentTabUrl.includes('.vn/') || currentTabUrl.includes('/vn/')) {
+		websiteCurrency = 'VND';
+	}
+	console.log('websiteCurrency: ' + websiteCurrency);
+	getExchangeRates();
+}
 
 /*
 	Get exchange rates from storage API and display currency box.
@@ -74,7 +87,7 @@ function createCurrencyBox() {
 				exchangeBoxEl.innerHTML = exchangeBoxStr;
 				// add new invisible text box at the end of page
 				document.body.appendChild(exchangeBoxEl.firstChild);
-				// display box at mouse pointer
+				// display box slightly below mouse pointer
 				console.log("Creating box with CAD " + amountCAD + " and VND " + amountVND);
 				$("#xchangeBox").css('top', mouseY + 'px');
 				$("#xchangeBox").css('left', mouseX + 'px');
@@ -90,3 +103,8 @@ function createCurrencyBox() {
 
 	}
 }
+
+// Example sendMessage
+	// chrome.runtime.sendMessage({request: 'websiteCurrency'}, function(response) {
+	// 	console.log(JSON.stringify(response));
+	// });

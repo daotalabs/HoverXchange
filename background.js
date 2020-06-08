@@ -41,3 +41,16 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 	    });
 	}
 })
+
+/*
+	Example message listener.
+*/
+// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+//         console.log("background.js got a message");
+//         console.log(sender.tab ?
+//                 "from a content script:" + sender.tab.url :
+//                 "from the extension");
+
+//         sendResponse({siteCurrency: setWebsiteCurrency(sender.tab.url)});
+//     }
+// );
