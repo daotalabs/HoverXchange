@@ -12,7 +12,7 @@ $(document).mousemove(function(e) {
 	USD: default
 */
 var websiteCurrency = 'USD';
-var xCurrencies = ['CAD', 'VND'] // this will be choosen on popup.html or by default
+var fxCurrencies = ['CAD', 'VND']; // by default, this will be modifiable on popup.html
 
 getWebsiteCurrency();
 
@@ -21,9 +21,11 @@ function getWebsiteCurrency() {
 	console.log('currentTabUrl: ' + currentTabUrl);
 	if (currentTabUrl.includes('.ca') || currentTabUrl.includes('.ca/') || currentTabUrl.includes('/ca/')) {
 		websiteCurrency = 'CAD';
+		fxCurrencies = ['USD', 'VND'];
 	}
 	if (currentTabUrl.includes('.vn') || currentTabUrl.includes('.vn/') || currentTabUrl.includes('/vn/')) {
 		websiteCurrency = 'VND';
+		fxCurrencies = ['USD', 'CAD'];
 	}
 	console.log('websiteCurrency: ' + websiteCurrency);
 	getExchangeRates();
@@ -34,11 +36,8 @@ function getWebsiteCurrency() {
 */
 function getExchangeRates() {
 	chrome.storage.sync.get(['current_rates'], function(ratesData) {
-    	console.log('contentscript: Value currently is ' + JSON.stringify(ratesData));
     	fx.base = ratesData.current_rates.base;
-    	console.log('contentscript: base currently is ' + fx.base);
     	fx.rates = ratesData.current_rates.rates;
-    	console.log('contentscript: rates currently is ' + JSON.stringify(fx.rates));
     	createCurrencyBox();
 	});
 }
@@ -50,65 +49,102 @@ function createCurrencyBox() {
 	if (document.body == null) {
 		return;
 	}
-	if (websiteCurrency == 'USD') {
-		/* CURRENCY SEARCH:
+	// regexes for currency search
+	var dollarOnlyRegex = /^[^0-9]*\$-?\s?(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?[^0-9]*$/i;
+	var dongPreOnlyRegex = /^[^0-9]*\₫\s?(?:\d+|\d{1,3}(?:.\d{3})+)(?:(\.|,)\d+)?[^0-9]*$/i;
+	var dongSubOnlyRegex = /^[^0-9]*(?:\d+|\d{1,3}(?:.\d{3})+)(?:(\.|,)\d+)?\s?\₫[^0-9]*$/i;
+	/* CURRENCY SEARCH:
+		if page is VND:
+			[done] if innermost element has ₫(number)/(number)₫ surrounded by non-integer characters
+			[later] if innermost element has (number)K(space) surrounded by non-integer characters
+			[later] if highlighted
+			[later] if innermost element has only number + immediate outer element has only ₫/VND
+				then get amount
 		if page is USD:
-			if innermost element has $(number) or $(number) surrounded by non-integer characters
-			[later] if innermost element has only number + immediate outer element has only $
+			[done] if innermost element has $(number) or $(number) surrounded by non-integer characters
+			[later] if highlighted
+			[later-maybe] if innermost element has only number + immediate outer element has only $
 				then get amount
 		similarly,
 		if page is CAD:
-			if innermost element has $../C$../CAD../CAD$.. or $(number) surrounded by non-integer characters
-			[later] if innermost element has only number + immediate outer element has only $/C$/CAD/CAD$
-				then get amount
-		if page is VND:
-			if innermost element has ₫../VND../..₫ or ₫(number)/(number)₫ surrounded by non-integer characters
-			[later] if innermost element has only number + immediate outer element has only ₫/VND
+			[done] if innermost element has $(number) or $(number) surrounded by non-integer characters
+			[later] if highlighted
+			[later] if innermost element has CAD(number) surrounded by non-integer characters
+			[later-maybe] if innermost element has only number + immediate outer element has only $/C$/CAD/CAD$
 				then get amount
 		*/
-		var regex = /^[^0-9]*-?\$-?\s?(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?[^0-9]*$/i; 
-		$(":contains('$'):not(:has(:contains('$')))").filter(function() {
-			return regex.test($(this).text());
-		}).hover(function() {
-				// grab the dollar amount and calculate
-				var amountUSD = accounting.unformat($(this).text());
-				console.log(amountUSD + '; regex tested: ' + $(this).text());
-				var amountCAD = fx.convert(amountUSD, {from: 'USD', to: 'CAD'});
-				var amountVND = fx.convert(amountUSD, {from: 'USD', to: 'VND'});
-
-				// create xchange box element
-				var exchangeBoxEl = document.createElement('div');
-				var exchangeBoxStr = "<div id='xchangeBox'>" +
-										"<span id='currency1' class='currency'>" +
-											// insert calculated amount to exchange box
-											accounting.formatMoney(amountCAD,[symbol = "C$"],[precision = 2],[thousand = ","],[decimal = "."],[format = "%s%v"]) +
-										"</span>" +
-										"<br>" +
-										"<span id='currency2' class='currency'>" + 
-											accounting.formatMoney(amountVND,[symbol = "₫"],[precision = 0],[thousand = ","],[decimal = "."],[format = "%s%v"]) +
-										"</span>" +
-									"</div>";	
-				exchangeBoxEl.innerHTML = exchangeBoxStr;
-				// add new invisible text box at the end of page
-				document.body.appendChild(exchangeBoxEl.firstChild);
-				// display box slightly below mouse pointer
-				console.log("Creating box with CAD " + amountCAD + " and VND " + amountVND);
-				$("#xchangeBox").css('top', mouseY + 'px');
-				$("#xchangeBox").css('left', mouseX + 'px');
-				$("#xchangeBox").css('display', 'block');
-	  		}, function() {
-	  			$('#xchangeBox').remove();
-	  		});	
-	}
-	if (websiteCurrency == 'CAD') {
-
-	}	
 	if (websiteCurrency == 'VND') {
-		accounting.unformat("€ 1.000.000,00", ","); // 1000000
+		$(':contains("₫"):not(:has(:contains("₫")))').filter(function() {
+			return dongPreOnlyRegex.test($(this).text()) || dongSubOnlyRegex.test($(this).text());
+		}).hover(function() {
+					var amount = accounting.unformat($(this).text(), ',');
+					console.log(amount + '; regex tested: ' + $(this).text());
+					getFxAmounts(amount, displayCurrencyBox)
+				}, function() {
+					$('#xchangeBox').remove();
+				});
+	} else {
+		// can combine cases for USD and CAD into one as both use the same dollar sign
+		$(':contains("$"):not(:has(:contains("$")))').filter(function() {
+			return dollarOnlyRegex.test($(this).text());
+		}).hover(function() {
+					var amount = accounting.unformat($(this).text());
+					console.log(amount + '; regex tested: ' + $(this).text());
+					getFxAmounts(amount, displayCurrencyBox)
+				}, function() {
+					$('#xchangeBox').remove();
+				});
 	}
 }
 
-// Example sendMessage
-	// chrome.runtime.sendMessage({request: 'websiteCurrency'}, function(response) {
-	// 	console.log(JSON.stringify(response));
-	// });
+/*
+	Convert default website currency to other currencies.
+*/
+function getFxAmounts(amount, callback){
+	var fxAmounts = [];
+	function iterate(fxCurrency) {
+  		fxAmounts.push(fx.convert(amount, {from: websiteCurrency, to: fxCurrency}));
+	}
+	fxCurrencies.forEach(iterate);
+  	callback(fxAmounts);
+}
+
+/*
+	Create and display currency box.
+*/
+function displayCurrencyBox(fxAmounts) {
+	var exchangeBoxEl = document.createElement('div');
+	var exchangeBoxStr = '<div id="xchangeBox">' +
+							'<span class="currency">' +
+								formatFx(fxCurrencies[0], fxAmounts[0]) +
+							'</span>' +
+							'<br>' +
+							'<span class="currency">' + 
+								formatFx(fxCurrencies[1], fxAmounts[1]) +
+							'</span>' +
+						'</div>';
+	exchangeBoxEl.innerHTML = exchangeBoxStr;
+	// add new invisible box at the end of page
+	document.body.appendChild(exchangeBoxEl.firstChild);
+	console.log("Creating box with " + fxCurrencies[0] + fxAmounts[0] + " and " + fxCurrencies[1] + fxAmounts[1]);
+	// display box slightly below mouse pointer
+	$('#xchangeBox').css('top', mouseY + 'px');
+	$('#xchangeBox').css('left', mouseX + 'px');
+	$('#xchangeBox').css('display', 'block');
+}
+
+/*
+	Format currency amounts correctly according to each's standard.
+*/
+function formatFx(fxCurrency, fxAmount) {
+	switch(fxCurrency) {
+	  	case 'CAD':
+	    	return accounting.formatMoney(fxAmount,[symbol = 'C$'],[precision = 2],[thousand = ','],[decimal = '.'],[format = '%s%v']);
+	    break;
+	    case 'VND':
+	    	return accounting.formatMoney(fxAmount,[symbol = '₫'],[precision = 0],[thousand = ','],[decimal = '.'],[format = '%s%v']);
+	    break;
+	  	default:
+	    	return accounting.formatMoney(fxAmount,[symbol = 'US$'],[precision = 2],[thousand = ','],[decimal = '.'],[format = '%s%v']);
+	}
+}
