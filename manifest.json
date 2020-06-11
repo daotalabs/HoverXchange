@@ -1,5 +1,5 @@
 {
-  "name": "xchange_xtension",
+  "name": "xchange-xtension",
   "version": "1.0",
   "description": "Convert between currencies on hover with current exchange rates",
   "permissions": ["activeTab", "tabs", "storage", "declarativeContent"],

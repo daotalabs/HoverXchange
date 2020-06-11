@@ -18,7 +18,7 @@ getWebsiteCurrency();
 
 function getWebsiteCurrency() {
 	var currentTabUrl = document.location.href;
-	console.log('currentTabUrl: ' + currentTabUrl);
+	// console.log('currentTabUrl: ' + currentTabUrl);
 	if (currentTabUrl.includes('.ca') || currentTabUrl.includes('.ca/') || currentTabUrl.includes('/ca/')) {
 		websiteCurrency = 'CAD';
 		fxCurrencies['USD'] = '0';
@@ -32,7 +32,7 @@ function getWebsiteCurrency() {
 		fxCurrencies['CAD'] = '0';
 		fxCurrencies['VND'] = '0';
 	}
-	console.log('websiteCurrency: ' + websiteCurrency);
+	// console.log('websiteCurrency: ' + websiteCurrency);
 	getExchangeRates();
 }
 
@@ -83,7 +83,7 @@ function createCurrencyBox() {
 			return dongPreOnlyRegex.test($(this).text()) || dongSubOnlyRegex.test($(this).text());
 		}).hover(function() {
 					var amount = accounting.unformat($(this).text(), ',');
-					console.log(amount + '; regex tested: ' + $(this).text());
+					// console.log(amount + '; regex tested: ' + $(this).text());
 					getFxAmounts(amount, displayCurrencyBox)
 				}, function() {
 					$('#xchangeBox').remove();
@@ -94,7 +94,7 @@ function createCurrencyBox() {
 			return dollarOnlyRegex.test($(this).text());
 		}).hover(function() {
 					var amount = accounting.unformat($(this).text());
-					console.log(amount + '; regex tested: ' + $(this).text());
+					// console.log(amount + '; regex tested: ' + $(this).text());
 					getFxAmounts(amount, displayCurrencyBox)
 				}, function() {
 					$('#xchangeBox').remove();
@@ -108,7 +108,7 @@ function createCurrencyBox() {
 function getFxAmounts(amount, callback){
 	Object.keys(fxCurrencies).forEach(function(key) {
 		fxCurrencies[key] = formatFx(key, fx.convert(amount, {from: websiteCurrency, to: key}));
-		console.log(key, fxCurrencies[key]);
+		// console.log(key, fxCurrencies[key]);
 	});
   	callback(fxCurrencies);
 }

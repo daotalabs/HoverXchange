@@ -17,13 +17,9 @@ chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 	if (changeInfo.status == 'complete' && tab.active) {
 		var ratesData = 'sample';
-		chrome.storage.sync.get(null, function(items) {
-		    var allKeys = Object.keys(items);
-		    console.log('current storage: ' + allKeys);
-		});
 		chrome.storage.sync.get('current_rates', function(value) {
 			if (value.current_rates == null || isRatesExpired(value)) {
-				console.log('getting current rates..' + isRatesExpired(value));
+				console.log('Rates expired: ' + isRatesExpired(value) + ', getting current rates..');
 				$.get('https://openexchangerates.org/api/latest.json', 
 					{
 						app_id: '68286f83188a46c696bff70ab8df2dce', 
@@ -35,7 +31,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 						})
 					});
 			} else {
-				console.log('Value currently is ' + JSON.stringify(value));
+				console.log('Rates value currently is ' + JSON.stringify(value));
 			}
 	    });
 	}
@@ -51,6 +47,5 @@ function isRatesExpired(value) {
 	var currentRatesDate = new Date(value.current_rates.timestamp * 1000);
 	var currentDate = new Date();
 	currentDate.setHours(0,0,0,0);
-	console.log('currentRatesDate: ' + currentRatesDate + ' , currentDate: ' + currentDate);
 	return (currentRatesDate < currentDate);
 }

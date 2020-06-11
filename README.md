@@ -4,13 +4,13 @@ A Google Chrome extension that converts currency amounts on hover using current 
 ### Context
 As many souls who have lived abroad know, moving between different countries means that you are constantly doing mental or physical math while online shopping. While this might be beneficial, it certainly is sometimes a real inconvenience. Having the ability to accurately convert currencies on the fly would save us not only time but also brain cells to dedicate to other productive endeavors. Hence this application.
 
-### Main Functionalities:
+### Main Functionalities
 - Application runs in the browser background on all websites.
 - When a user hovers cursor over a money amount, the application displays a tooltip at the cursor position with money amounts in other currencies.
 - The available currencies are currently USD, CAD and VND by default.
 - Live exchange rates are fetched from [Open Exchange Rates API](https://openexchangerates.org/) and cached daily.
 
-### Limitations & Future Development:
+### Limitations & Future Development
 - Let user choose which currencies to display on the extension popup.
 - If there is demand for this application, a workaround for the 1000 exchange rates API calls per month quota needs to be explored.
 
@@ -20,12 +20,12 @@ As many souls who have lived abroad know, moving between different countries mea
 Clone this repository into your local machine or download as a zip file and unzip it in your desired directory.
 
 ### Step 2: Load the extension on your Chrome browser.
-2.1 Open Google Chrome, type `chrome://extensions/` in the address bar and hit enter to open the Extension Settings. 
-2.2 Switch to `Developer mode` at the upper right corner of the page if not set already. 
+2.1 Open Google Chrome, type `chrome://extensions/` in the address bar and hit enter to open the Extension Settings.  
+2.2 Switch to `Developer mode` at the upper right corner of the page if not set already.  
 2.3 Click on the `Load unpacked` button, navigate to and select the xchange_xtension's folder. The extension should now appear in your browser.
 
 ### Step 3: Test.
-That's it! Try openning a website that has money amounts on display (e.g. amazon.com) and test xchange_xtension's functionalities.
+That's it! Try openning a website that has money amounts on display (e.g. amazon.com) and test xchange-xtension's functionalities.
 
 ## Built With
 - JavaScript
