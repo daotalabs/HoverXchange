@@ -6,8 +6,6 @@ $(document).mousemove(function(e) {
 	mouseY = e.pageY + 15;
 });
 
-getWebsiteCurrency();
-
 /* Determine which currency the page is in
 	VND: domain .vn, detect Vietnamese, url has /vn/
 	CAD: domain .ca, url has /ca/
@@ -15,6 +13,8 @@ getWebsiteCurrency();
 */
 var websiteCurrency = 'USD';
 var fxCurrencies = {};
+
+getWebsiteCurrency();
 
 function getWebsiteCurrency() {
 	var currentTabUrl = document.location.href;
