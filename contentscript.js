@@ -6,26 +6,31 @@ $(document).mousemove(function(e) {
 	mouseY = e.pageY + 15;
 });
 
+getWebsiteCurrency();
+
 /* Determine which currency the page is in
 	VND: domain .vn, detect Vietnamese, url has /vn/
 	CAD: domain .ca, url has /ca/
 	USD: default
 */
 var websiteCurrency = 'USD';
-var fxCurrencies = ['CAD', 'VND']; // by default, this will be modifiable on popup.html
-
-getWebsiteCurrency();
+var fxCurrencies = {};
 
 function getWebsiteCurrency() {
 	var currentTabUrl = document.location.href;
 	console.log('currentTabUrl: ' + currentTabUrl);
 	if (currentTabUrl.includes('.ca') || currentTabUrl.includes('.ca/') || currentTabUrl.includes('/ca/')) {
 		websiteCurrency = 'CAD';
-		fxCurrencies = ['USD', 'VND'];
+		fxCurrencies['USD'] = '0';
+		fxCurrencies['VND'] = '0';
 	}
 	if (currentTabUrl.includes('.vn') || currentTabUrl.includes('.vn/') || currentTabUrl.includes('/vn/')) {
 		websiteCurrency = 'VND';
-		fxCurrencies = ['USD', 'CAD'];
+		fxCurrencies['USD'] = '0';
+		fxCurrencies['CAD'] = '0';
+	} else {
+		fxCurrencies['CAD'] = '0';
+		fxCurrencies['VND'] = '0';
 	}
 	console.log('websiteCurrency: ' + websiteCurrency);
 	getExchangeRates();
@@ -101,32 +106,29 @@ function createCurrencyBox() {
 	Convert default website currency to other currencies.
 */
 function getFxAmounts(amount, callback){
-	var fxAmounts = [];
-	function iterate(fxCurrency) {
-  		fxAmounts.push(fx.convert(amount, {from: websiteCurrency, to: fxCurrency}));
-	}
-	fxCurrencies.forEach(iterate);
-  	callback(fxAmounts);
+	Object.keys(fxCurrencies).forEach(function(key) {
+		fxCurrencies[key] = formatFx(key, fx.convert(amount, {from: websiteCurrency, to: key}));
+		console.log(key, fxCurrencies[key]);
+	});
+  	callback(fxCurrencies);
 }
 
 /*
 	Create and display currency box.
 */
-function displayCurrencyBox(fxAmounts) {
+function displayCurrencyBox(fxCurrencies) {
 	var exchangeBoxEl = document.createElement('div');
-	var exchangeBoxStr = '<div id="xchangeBox">' +
-							'<span class="currency">' +
-								formatFx(fxCurrencies[0], fxAmounts[0]) +
-							'</span>' +
-							'<br>' +
-							'<span class="currency">' + 
-								formatFx(fxCurrencies[1], fxAmounts[1]) +
-							'</span>' +
-						'</div>';
+	var exchangeBoxStr = '<div id="xchangeBox">';
+	Object.keys(fxCurrencies).forEach(function(key) {
+		exchangeBoxStr = exchangeBoxStr + '<span class="currency">' +
+											fxCurrencies[key] +
+							  			  '</span>' +
+							  			  '<br>';
+	});
+	exchangeBoxStr = exchangeBoxStr + '</div>';
 	exchangeBoxEl.innerHTML = exchangeBoxStr;
 	// add new invisible box at the end of page
 	document.body.appendChild(exchangeBoxEl.firstChild);
-	console.log("Creating box with " + fxCurrencies[0] + fxAmounts[0] + " and " + fxCurrencies[1] + fxAmounts[1]);
 	// display box slightly below mouse pointer
 	$('#xchangeBox').css('top', mouseY + 'px');
 	$('#xchangeBox').css('left', mouseX + 'px');
