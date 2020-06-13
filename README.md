@@ -10,13 +10,15 @@ As many souls who have lived abroad know, moving between different countries mea
 - The available currencies are currently USD, CAD and VND by default.
 - Live exchange rates are fetched from [Open Exchange Rates API](https://openexchangerates.org/) and cached daily.
 
+![Demo](https://j.gifs.com/mOz5O3.gif)
+
 ### Limitations & Future Development
 - Let user choose which currencies to display on the extension popup.
 - If there is demand for this application, a workaround for the 1000 exchange rates API calls per month quota needs to be explored.
 
 ## Installing
 
-### Step 1: Get a copy of xchange_xtension's source code.
+### Step 1: Get a copy of xchange-xtension's source code.
 Clone this repository into your local machine or download as a zip file and unzip it in your desired directory.
 
 ### Step 2: Load the extension on your Chrome browser.
