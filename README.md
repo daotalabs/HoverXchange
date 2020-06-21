@@ -10,7 +10,7 @@ As many souls who have lived abroad know, moving between different countries mea
 - The available currencies are currently USD, CAD and VND by default.
 - Live exchange rates are fetched from [Open Exchange Rates API](https://openexchangerates.org/) and cached daily.
 
-<img src="https://j.gifs.com/Gvk0MK.gif" alt="Demo" width="500"/>
+<center><img src="https://j.gifs.com/Gvk0MK.gif" alt="Demo" width="600"></center>
 
 ### Future Development
 - Ability to enable/disable extension.
