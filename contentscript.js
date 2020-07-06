@@ -23,8 +23,7 @@ function getWebsiteCurrency() {
 		websiteCurrency = 'CAD';
 		fxCurrencies['USD'] = '0';
 		fxCurrencies['VND'] = '0';
-	}
-	if (currentTabUrl.includes('.vn') || currentTabUrl.includes('.vn/') || currentTabUrl.includes('/vn/')) {
+	} else if (currentTabUrl.includes('.vn') || currentTabUrl.includes('.vn/') || currentTabUrl.includes('/vn/')) {
 		websiteCurrency = 'VND';
 		fxCurrencies['USD'] = '0';
 		fxCurrencies['CAD'] = '0';
@@ -89,12 +88,11 @@ function createCurrencyBox() {
 					$('#xchangeBox').remove();
 				});
 	} else {
-		// can combine cases for USD and CAD into one as both use the same dollar sign
 		$(':contains("$"):not(:has(:contains("$")))').filter(function() {
 			return dollarOnlyRegex.test($(this).text());
 		}).hover(function() {
 					var amount = accounting.unformat($(this).text());
-					// console.log(amount + '; regex tested: ' + $(this).text());
+					//console.log(amount + '; regex tested: ' + $(this).text());
 					getFxAmounts(amount, displayCurrencyBox)
 				}, function() {
 					$('#xchangeBox').remove();
