@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <style>
+        button {
+          height: 30px;
+          width: 30px;
+          outline: none;
+          margin: 10px;
+        }
+      </style>
+      <link rel="stylesheet" type="text/css" href="css/styles.css">
+    </head>
+    <body id="optionsBody">
+      <div id="options">
+        <h2>General Options</h2>
+        <div id="buttonDiv">
+        </div>
+         <label class="switch">
+          <input type="checkbox" checked>
+          <span class="slider round"></span>
+        </label>
+        <div>
+          <p>==toggle default on== Enabled extension.</p>
+          <p>==toogle off== Disabled extension</p>
+          <p>==toogle default on== Live rate frequency: once per month</p>
+          <p>==toogle off== Choose live rate frequency. ==drop-down menu==</p>
+          <p>==toogle default on== Set default base currency automatically</p>
+          <p>==toggle off== Set default base currecy for all sites to: ==input box to list only one string currency==</p>
+          <p>==toogle default on== Default currencies to display: USD, CAD, VND</p>
+          <p>==toogle off== Currencies to display: ==input box to list currencies in strings==</p>
+          <p>==toggle default on== Run only on these sites: ==list of sites with input box==</p>
+          <p>==toggle off== Run on all sites</p>
+        </div>
+        <button>
+          <p>Add</p>
+        </button>
+        <button>
+          <p>Save</p>
+        </button>
+      </div>
+    </body>
+    <script src="options.js"></script>
+  </html>
