@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body id="options-body">
+  <div id="options">
+    <h2>General Options</h2>
+    <div>
+      <div class="toggle-wrapper">
+        <label class="switch">
+          <input type="checkbox" checked>
+          <span class="slider round"></span>
+        </label>
+        <div class="toggle-text">
+          Enabled extension
+        </div>
+      </div>
+
+      <h3>Update Currency Rates</h3>
+      <label class="radio-container">Monthly (default)
+        <input type="radio" checked="checked" name="radioGetRates">
+        <span class="checkmark"></span>
+      </label>
+      <label class="radio-container">Bi-weekly
+        <input type="radio" name="radioGetRates">
+        <span class="checkmark"></span>
+      </label>
+      <label class="radio-container">Weekly
+        <input type="radio" name="radioGetRates">
+        <span class="checkmark"></span>
+      </label>
+      <label class="radio-container">Daily
+        <input type="radio" name="radioGetRates">
+        <span class="checkmark"></span>
+      </label>
+
+      <h3>Base Currency</h3>
+      <label class="radio-container">Set automatically based on current URL (default)
+        <input type="radio" checked="checked" name="radioBaseCurrency">
+        <span class="checkmark"></span>
+      </label>
+      <label class="radio-container">Set the base currency for all sites to: 
+        <input type="radio" name="radioBaseCurrency">
+        <span class="checkmark"></span>
+      </label>
+      <div>
+        <input type="text" id="inputBaseCurrency" value="USD">
+        <p class="input-note">type in currency abbreviation</p>
+      </div>
+
+      <h3>Currencies To Display</h3>
+      <div>
+        <input type="text" id="inputDisplayCurrency" value="CAD, VND">
+        <p class="input-note">3 currencies maximum not including base currency, separated by commas</p>
+      </div>
+
+      <h3>Filtered List</h3>
+      <label class="radio-container">Run on all sites
+        <input type="radio" checked="checked" name="radioList">
+        <span class="checkmark"></span>
+      </label>
+      <label class="radio-container">Run only on these sites:
+        <input type="radio" name="radioList">
+        <span class="checkmark"></span>
+      </label>
+      <div class="filtered-list-box">
+        <ul>
+          <li>wwww.amazon.com</li>
+          <li>www.ebay.com</li>
+          <li>www.chase.com</li>
+          <li>www.etsy.com</li>
+          <li>www.jet.com</li>
+        </ul>
+      </div>
+    </div>
+    <button>Save</button>
+
+    <p>Send feedback to (email)</p>
+  </div>
+</body>
+<script src="options.js"></script>
+</html>

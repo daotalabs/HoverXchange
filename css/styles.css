@@ -31,3 +31,201 @@
 	border-style: solid;
 	border-color: transparent transparent #555 transparent;
 }
+
+#options-body {
+	/*background-color: #5AF;*/
+}
+
+#options {
+	font-size: 18px;
+	background-color: white;
+  	border: 3px solid #5AF;
+  	padding: 5px 15px 15px 15px;
+}
+
+/* toogle switch */
+.toogle-wrapper {
+	/*display: inline-block;*/
+	/*margin:24px 24px 24px 24px;*/
+	/*postion:relative;*/
+
+}
+
+.toggle-text {
+	display: inline-block;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 45px;
+  height: 25.5px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 19.5px;
+  width: 19.5px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(19.5px);
+  -ms-transform: translateX(19.5px);
+  transform: translateX(19.5px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 25.5px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/*
+	Text inputs
+*/
+.input-note {
+	display: inline;
+	font-style: italic;
+	font-size: 15px;
+	color: DarkGrey;
+}
+
+#inputBaseCurrency {
+	margin-left: 35px;
+	line-height: 25px;
+	padding-left: 10px;
+	width: 40px;
+}
+
+#inputDisplayCurrency {
+	line-height: 25px;
+	padding-left: 10px;
+}
+
+/* 
+	Radio buttons 
+*/
+.radio-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  /*font-size: 20px;*/
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.radio-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.radio-container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.radio-container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radio-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radio-container .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
+
+/*
+	Filtered list box
+*/ 
+.filtered-list-box {
+	margin-left: 35px;
+	border:1px solid #000;
+	height:100px;
+	width:300px;
+}
+
+.filtered-list-box ul{
+	list-style:none;
+	max-height:100px;
+	margin:0;
+	overflow:auto;
+	padding:0;
+	text-indent:10px;
+}
+
+.filtered-list-box ul li {
+	line-height:25px;
+}
+
+.filtered-list-box ul li:nth-child(even){
+	background:#ccc;
+}
