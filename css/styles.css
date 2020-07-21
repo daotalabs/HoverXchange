@@ -32,30 +32,26 @@
 	border-color: transparent transparent #555 transparent;
 }
 
-#optionsBody {
+#options-body {
 	/*background-color: #5AF;*/
 }
 
 #options {
-	font-size: 20px;
+	font-size: 18px;
 	background-color: white;
-	position: fixed;
-  	top: 10%;
-  	left: 50%;
   	border: 3px solid #5AF;
   	padding: 5px 15px 15px 15px;
-  	transform: translate(-50%, -10%);
 }
 
 /* toogle switch */
-.toogleWrapper {
+.toogle-wrapper {
 	/*display: inline-block;*/
 	/*margin:24px 24px 24px 24px;*/
 	/*postion:relative;*/
 
 }
 
-.toggleText {
+.toggle-text {
 	display: inline-block;
 }
 
@@ -119,9 +115,32 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+/*
+	Text inputs
+*/
+.input-note {
+	display: inline;
+	font-style: italic;
+	font-size: 15px;
+	color: DarkGrey;
+}
 
-/* The container */
-.container {
+#inputBaseCurrency {
+	margin-left: 35px;
+	line-height: 25px;
+	padding-left: 10px;
+	width: 40px;
+}
+
+#inputDisplayCurrency {
+	line-height: 25px;
+	padding-left: 10px;
+}
+
+/* 
+	Radio buttons 
+*/
+.radio-container {
   display: block;
   position: relative;
   padding-left: 35px;
@@ -135,7 +154,7 @@ input:checked + .slider:before {
 }
 
 /* Hide the browser's default radio button */
-.container input {
+.radio-container input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -153,12 +172,12 @@ input:checked + .slider:before {
 }
 
 /* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
+.radio-container:hover input ~ .checkmark {
   background-color: #ccc;
 }
 
 /* When the radio button is checked, add a blue background */
-.container input:checked ~ .checkmark {
+.radio-container input:checked ~ .checkmark {
   background-color: #2196F3;
 }
 
@@ -170,16 +189,43 @@ input:checked + .slider:before {
 }
 
 /* Show the indicator (dot/circle) when checked */
-.container input:checked ~ .checkmark:after {
+.radio-container input:checked ~ .checkmark:after {
   display: block;
 }
 
 /* Style the indicator (dot/circle) */
-.container .checkmark:after {
+.radio-container .checkmark:after {
  	top: 9px;
 	left: 9px;
 	width: 8px;
 	height: 8px;
 	border-radius: 50%;
 	background: white;
+}
+
+/*
+	Filtered list box
+*/ 
+.filtered-list-box {
+	margin-left: 35px;
+	border:1px solid #000;
+	height:100px;
+	width:300px;
+}
+
+.filtered-list-box ul{
+	list-style:none;
+	max-height:100px;
+	margin:0;
+	overflow:auto;
+	padding:0;
+	text-indent:10px;
+}
+
+.filtered-list-box ul li {
+	line-height:25px;
+}
+
+.filtered-list-box ul li:nth-child(even){
+	background:#ccc;
 }
