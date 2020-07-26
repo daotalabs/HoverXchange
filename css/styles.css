@@ -1,8 +1,11 @@
 .popup {
-    height: auto;
-    width: 75px;
-    font-size: 15px;
-    margin: 0px 0px;
+  height: auto;
+  width: 180px;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 #xchangeBox {
@@ -39,27 +42,18 @@
 #options {
 	font-size: 18px;
 	background-color: white;
-  	border: 3px solid #5AF;
-  	padding: 5px 15px 15px 15px;
+  border: 3px solid #5AF;
+	padding: 5px 15px 15px 15px;
 }
 
-/* toogle switch */
-.toogle-wrapper {
-	/*display: inline-block;*/
-	/*margin:24px 24px 24px 24px;*/
-	/*postion:relative;*/
-
-}
-
-.toggle-text {
-	display: inline-block;
-}
-
+/* 
+On/Off Switch 
+*/
 .switch {
   position: relative;
   display: inline-block;
-  width: 45px;
-  height: 25.5px;
+  width: 60px; 
+  height: 34px; 
 }
 
 .switch input { 
@@ -83,13 +77,17 @@
 .slider:before {
   position: absolute;
   content: "";
-  height: 19.5px;
-  width: 19.5px;
-  left: 3px;
-  bottom: 3px;
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
+}
+
+.toggle-text {
+  display: inline; 
 }
 
 input:checked + .slider {
@@ -101,14 +99,14 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(19.5px);
-  -ms-transform: translateX(19.5px);
-  transform: translateX(19.5px);
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
 }
 
 /* Rounded sliders */
 .slider.round {
-  border-radius: 25.5px;
+  border-radius: 34px;
 }
 
 .slider.round:before {
@@ -126,7 +124,7 @@ input:checked + .slider:before {
 }
 
 #inputBaseCurrency {
-	margin-left: 35px;
+	margin-left: px;
 	line-height: 25px;
 	padding-left: 10px;
 	width: 40px;
@@ -182,11 +180,11 @@ input:checked + .slider:before {
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
-.checkmark:after {
+  .checkmark:after {
   content: "";
   position: absolute;
   display: none;
-}
+  }
 
 /* Show the indicator (dot/circle) when checked */
 .radio-container input:checked ~ .checkmark:after {
@@ -229,3 +227,11 @@ input:checked + .slider:before {
 .filtered-list-box ul li:nth-child(even){
 	background:#ccc;
 }
+
+
+
+
+
+
+
+

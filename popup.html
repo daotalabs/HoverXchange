@@ -1,18 +1,170 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
-  </head>
-  <body>
-    <div class="popup">
-      <p>This page is in USD</p>
-      <input type="checkbox" id="usd" name="usd" value="USD">
-      <label for="usd"> USD</label><br>
-      <input type="checkbox" id="cad" name="cad" value="CAD">
-      <label for="cad"> CAD</label><br>
-      <input type="checkbox" id="vnd" name="vnd" value="VND">
-      <label for="vnd"> VND</label><br>
-      <script src="popup.js"></script>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="css/styles.css" > 
+  <style>
+  /* On/Off Switch */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 17px;
+    margin: 1.5px;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 13px;
+    width: 13px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(13px);
+    -ms-transform: translateX(13px);
+    transform: translateX(13px);
+  }
+
+  /* Dropdown Menu */
+  .dropdown-text {
+    display: inline; 
+  }
+
+  /* Input Textbox 
+  input {
+    width: 80px;
+  }
+
+  .input-text {
+    display: inline;
+    margin: 3px;
+  }
+
+  #convert-box {
+    border-radius: 7px;
+    background-color: #99ccff;
+    border: 1px solid green;
+    width: auto;
+    height: auto;
+    padding: 6px;
+    margin-left: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+    display: inline-block;
+    text-align: center;
+  }
+*/
+
+  /* Line */
+  hr { 
+    width: 98%;
+    height: 1px;
+    border: 0 none;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 6px;
+    margin-bottom: 5px;
+    background-color: #d9d9d9;
+  }
+
+  /* Cogwheel Button */
+  .centered-container { /*create an outer box containing the line and the button to make it easier to center at the bottom of popup */
+    height: 25px; 
+    width: 180px; /*equals to the popup's width*/
+    position: relative;
+  }
+
+  .settings-button {
+    margin: 4px; 
+    position: absolute;
+    top: 50%;
+    left: 47%;
+    transform: translate(-50%, -50%);
+  }
+
+  settings-button:hover {
+    cursor: hand;
+    cursor: pointer;
+  }
+
+  </style> 
+</head>
+
+<body>
+  <div class="popup">
+    <!-- On/Off Switch -->
+    <div class="toggle-wrapper">
+      <label class="switch">
+        <input type="checkbox" checked>
+        <span class="slider round"></span>
+      </label>
+      <div class="toggle-text"> 
+        Enabled
+      </div>
     </div>
-  </body>
-</html> -->
+
+    <!-- Checkbox -->
+    <div class="toggle-wrapper">
+      <label class="switch">
+        <input type="checkbox" checked>
+        <span class="slider round"></span>
+      </label>
+      <div class="toggle-text"> 
+        Filtered this website
+      </div>
+    </div>
+
+    <!--  Dropdown Menu -->
+    <div class="dropdown">
+      <div class="dropdown-text"> 
+        Default currency is
+      </div>
+      <select>
+        <option>USD</option>
+        <option>CAD</option>
+        <option>VND</option>
+      </select>
+    </div> 
+
+    <!-- Input Textbox 
+    <div class="currency">USD
+      <input type="text" id="currency" name="currency">
+      <div class="input-text"> 
+        =  
+      </div>
+      <p id="convert-box">
+        CAD <input type="text" id="currency" name="currency">
+        <br>VND <input type="text" id="currency" name="currency">
+        <br>EUR <input type="text" id="currency" name="currency">
+      </p>
+    </div>
+-->
+  
+    <!-- Cogwheel Button -->
+    <div class="centered-container">
+      <hr> <!-- Draw a line -->
+      <div class="settings-button">
+        <form action="chrome-extension://egbpgileeodadfekooakmocljgchgonf/options.html" method="get" target="_blank">
+          <button>
+            <settings-button>
+              <img src="https://img.icons8.com/material-sharp/15/000000/settings.png" style="vertical-align: middle;"/> Settings
+            </settings-button>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+
+
