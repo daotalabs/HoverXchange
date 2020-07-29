@@ -124,7 +124,7 @@ input:checked + .slider:before {
 }
 
 #inputBaseCurrency {
-	margin-left: px;
+  margin-left: 35px;
 	line-height: 25px;
 	padding-left: 10px;
 	width: 40px;
@@ -180,11 +180,11 @@ input:checked + .slider:before {
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
-  .checkmark:after {
+.checkmark:after {
   content: "";
   position: absolute;
   display: none;
-  }
+}
 
 /* Show the indicator (dot/circle) when checked */
 .radio-container input:checked ~ .checkmark:after {
@@ -227,11 +227,3 @@ input:checked + .slider:before {
 .filtered-list-box ul li:nth-child(even){
 	background:#ccc;
 }
-
-
-
-
-
-
-
-
