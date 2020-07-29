@@ -36,32 +36,6 @@
     display: inline; 
   }
 
-  /* Input Textbox 
-  input {
-    width: 80px;
-  }
-
-  .input-text {
-    display: inline;
-    margin: 3px;
-  }
-
-  #convert-box {
-    border-radius: 7px;
-    background-color: #99ccff;
-    border: 1px solid green;
-    width: auto;
-    height: auto;
-    padding: 6px;
-    margin-left: 0;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-right: 10px;
-    display: inline-block;
-    text-align: center;
-  }
-*/
-
   /* Line */
   hr { 
     width: 98%;
@@ -77,7 +51,7 @@
   /* Cogwheel Button */
   .centered-container { /*create an outer box containing the line and the button to make it easier to center at the bottom of popup */
     height: 25px; 
-    width: 180px; /*equals to the popup's width*/
+    width: 260px; /*equals to the popup's width*/
     position: relative;
   }
 
@@ -90,8 +64,15 @@
   }
 
   settings-button:hover {
-    cursor: hand;
     cursor: pointer;
+  }
+
+  a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
+    color: initial;
   }
 
   </style> 
@@ -133,38 +114,18 @@
       </select>
     </div> 
 
-    <!-- Input Textbox 
-    <div class="currency">USD
-      <input type="text" id="currency" name="currency">
-      <div class="input-text"> 
-        =  
-      </div>
-      <p id="convert-box">
-        CAD <input type="text" id="currency" name="currency">
-        <br>VND <input type="text" id="currency" name="currency">
-        <br>EUR <input type="text" id="currency" name="currency">
-      </p>
-    </div>
--->
-  
     <!-- Cogwheel Button -->
     <div class="centered-container">
       <hr> <!-- Draw a line -->
       <div class="settings-button">
-        <form action="chrome-extension://egbpgileeodadfekooakmocljgchgonf/options.html" method="get" target="_blank">
-          <button>
-            <settings-button>
-              <img src="https://img.icons8.com/material-sharp/15/000000/settings.png" style="vertical-align: middle;"/> Settings
-            </settings-button>
-          </button>
-        </form>
+        <button>
+          <settings-button>
+            <img src="https://img.icons8.com/material-sharp/15/000000/settings.png" style="vertical-align: middle;"/>
+            <a href="options.html" class ="button" target="_blank">More Options</a>
+          </settings-button>
+        </button>
       </div>
     </div>
   </div>
 </body>
 </html>
-
-
-
-
-
