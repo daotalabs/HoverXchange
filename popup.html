@@ -2,80 +2,8 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="css/styles.css" > 
-  <style>
-    /* On/Off Switch */
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 30px;
-      height: 17px;
-      margin: 1.5px;
-    }
-
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 13px;
-      width: 13px;
-      left: 2px;
-      bottom: 2px;
-      background-color: white;
-      -webkit-transition: .4s;
-      transition: .4s;
-    }
-
-    input:checked + .slider:before {
-      -webkit-transform: translateX(13px);
-      -ms-transform: translateX(13px);
-      transform: translateX(13px);
-    }
-
-    /* Dropdown Menu */
-    .dropdown-text {
-      display: inline; 
-    }
-
-    /* Line */
-    hr { 
-      width: 98%;
-      height: 1px;
-      border: 0 none;
-      margin-right: auto;
-      margin-left: auto;
-      margin-top: 6px;
-      margin-bottom: 5px;
-      background-color: #d9d9d9;
-    }
-
-    /* Cogwheel Button */
-    .centered-container { /*create an outer box containing the line and the button to make it easier to center at the bottom of popup */
-      height: 25px; 
-      width: 260px; /*equals to the popup's width*/
-      position: relative;
-    }
-
-    .settings-button {
-      margin: 4px; 
-      position: absolute;
-      top: 50%;
-      left: 47%;
-      transform: translate(-50%, -50%);
-    }
-
-    settings-button:hover {
-      cursor: pointer;
-    }
-
-    a.button {
-      -webkit-appearance: button;
-      -moz-appearance: button;
-      appearance: button;
-      text-decoration: none;
-      color: initial;
-    }
-  </style> 
+  <link rel="stylesheet" type="text/css" href="css/popup.css" > 
 </head>
-
 <body>
   <div class="popup">
     <!-- On/Off Switch -->
