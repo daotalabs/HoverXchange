@@ -1,18 +1,57 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
-  </head>
-  <body>
-    <div class="popup">
-      <p>This page is in USD</p>
-      <input type="checkbox" id="usd" name="usd" value="USD">
-      <label for="usd"> USD</label><br>
-      <input type="checkbox" id="cad" name="cad" value="CAD">
-      <label for="cad"> CAD</label><br>
-      <input type="checkbox" id="vnd" name="vnd" value="VND">
-      <label for="vnd"> VND</label><br>
-      <script src="popup.js"></script>
+<head>
+  <link rel="stylesheet" type="text/css" href="css/styles.css" > 
+  <link rel="stylesheet" type="text/css" href="css/popup.css" > 
+</head>
+<body>
+  <div class="popup">
+    <!-- On/Off Switch -->
+    <div class="toggle-wrapper">
+      <label class="switch">
+        <input type="checkbox" checked>
+        <span class="slider round"></span>
+      </label>
+      <div class="toggle-text"> 
+        Enabled
+      </div>
     </div>
-  </body>
-</html> -->
+
+    <!-- Checkbox -->
+    <div class="toggle-wrapper">
+      <label class="switch">
+        <input type="checkbox" checked>
+        <span class="slider round"></span>
+      </label>
+      <div class="toggle-text"> 
+        Filtered this website
+      </div>
+    </div>
+
+    <!--  Dropdown Menu -->
+    <div class="dropdown">
+      <div class="dropdown-text"> 
+        Default currency is
+      </div>
+      <select>
+        <option>USD</option>
+        <option>CAD</option>
+        <option>VND</option>
+      </select>
+    </div>
+
+    <!-- Cogwheel Button -->
+    <div class="centered-container">
+      <hr> <!-- Draw a line -->
+      <div class="settings-button">
+        <button>
+          <settings-button>
+            <img src="https://img.icons8.com/material-sharp/15/000000/settings.png" style="vertical-align: middle;"/>
+            <a href="options.html" class ="button" target="_blank">More Options</a>
+          </settings-button>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,8 +1,11 @@
 .popup {
-    height: auto;
-    width: 75px;
-    font-size: 15px;
-    margin: 0px 0px;
+  height: auto;
+  width: 180px;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 #xchangeBox {
@@ -39,27 +42,18 @@
 #options {
 	font-size: 18px;
 	background-color: white;
-  	border: 3px solid #5AF;
-  	padding: 5px 15px 15px 15px;
+  border: 3px solid #5AF;
+	padding: 5px 15px 15px 15px;
 }
 
-/* toogle switch */
-.toogle-wrapper {
-	/*display: inline-block;*/
-	/*margin:24px 24px 24px 24px;*/
-	/*postion:relative;*/
-
-}
-
-.toggle-text {
-	display: inline-block;
-}
-
+/* 
+On/Off Switch 
+*/
 .switch {
   position: relative;
   display: inline-block;
-  width: 45px;
-  height: 25.5px;
+  width: 45px; 
+  height: 25.5px; 
 }
 
 .switch input { 
@@ -90,6 +84,10 @@
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
+}
+
+.toggle-text {
+  display: inline; 
 }
 
 input:checked + .slider {
@@ -126,7 +124,7 @@ input:checked + .slider:before {
 }
 
 #inputBaseCurrency {
-	margin-left: 35px;
+  margin-left: 35px;
 	line-height: 25px;
 	padding-left: 10px;
 	width: 40px;
