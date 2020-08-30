@@ -1,6 +1,6 @@
 .popup {
   height: auto;
-  width: auto;
+  width: 180px;
   font-size: 14px;
   margin-top: 5px;
   margin-left: 5px;
@@ -17,14 +17,14 @@
 	position: absolute;
 	z-index: 10000;
 	/* for the tooltip box */
-	width: 120px;
-	bottom: 100%;
-	height: 50px;
-	margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+	width: auto;
+	bottom: auto;
+  height: auto;
+	margin-left: auto; 
 }
 
 /* for the arrow */
-#xchangeBox::after { 
+#xchangeBox::after {
 	content: " ";
 	position: absolute;
 	bottom: 100%;  /* At the top of the tooltip */
@@ -34,6 +34,7 @@
 	border-style: solid;
 	border-color: transparent transparent #555 transparent;
 }
+
 
 #options-body {
 	/*background-color: #5AF;*/
@@ -46,17 +47,17 @@
 	padding: 5px 15px 15px 15px;
 }
 
-/* 
-On/Off Switch 
+/*
+On/Off Switch
 */
 .switch {
   position: relative;
   display: inline-block;
-  width: 45px; 
-  height: 25.5px; 
+  width: 45px;
+  height: 25.5px;
 }
 
-.switch input { 
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -87,7 +88,7 @@ On/Off Switch
 }
 
 .toggle-text {
-  display: inline; 
+  display: inline;
 }
 
 input:checked + .slider {
@@ -135,8 +136,8 @@ input:checked + .slider:before {
 	padding-left: 10px;
 }
 
-/* 
-	Radio buttons 
+/*
+	Radio buttons
 */
 .radio-container {
   display: block;
@@ -203,7 +204,7 @@ input:checked + .slider:before {
 
 /*
 	Filtered list box
-*/ 
+*/
 .filtered-list-box {
 	margin-left: 35px;
 	border:1px solid #000;
