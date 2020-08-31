@@ -24,7 +24,7 @@
 }
 
 /* for the arrow */
-#xchangeBox::after { 
+#xchangeBox::after {
 	content: " ";
 	position: absolute;
 	bottom: 100%;  /* At the top of the tooltip */
@@ -35,7 +35,7 @@
 	border-color: transparent transparent #555 transparent;
 }
 
-#options-body {
+#optionsBody {
 	/*background-color: #5AF;*/
 }
 
@@ -46,17 +46,17 @@
 	padding: 5px 15px 15px 15px;
 }
 
-/* 
-On/Off Switch 
+/*
+On/Off Switch
 */
 .switch {
   position: relative;
   display: inline-block;
-  width: 45px; 
-  height: 25.5px; 
+  width: 45px;
+  height: 25.5px;
 }
 
-.switch input { 
+.switch-input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -87,7 +87,7 @@ On/Off Switch
 }
 
 .toggle-text {
-  display: inline; 
+  display: inline;
 }
 
 input:checked + .slider {
@@ -135,8 +135,8 @@ input:checked + .slider:before {
 	padding-left: 10px;
 }
 
-/* 
-	Radio buttons 
+/*
+	Radio buttons
 */
 .radio-container {
   display: block;
@@ -203,7 +203,7 @@ input:checked + .slider:before {
 
 /*
 	Filtered list box
-*/ 
+*/
 .filtered-list-box {
 	margin-left: 35px;
 	border:1px solid #000;
