@@ -2,7 +2,7 @@
 var mouseX;
 var mouseY;
 $(document).mousemove(function(e) {
-	mouseX = e.pageX; 
+	mouseX = e.pageX;
 	mouseY = e.pageY + 15;
 });
 
@@ -39,10 +39,10 @@ function getWebsiteCurrency() {
 	Get exchange rates from storage API and display currency box.
 */
 function getExchangeRates() {
-	chrome.storage.sync.get(['current_rates'], function(ratesData) {
-    	fx.base = ratesData.current_rates.base;
-    	fx.rates = ratesData.current_rates.rates;
-    	createCurrencyBox();
+	chrome.storage.sync.get('xchangeXtension', function(value) {
+    fx.base = value.xchangeXtension.currentRates.base;
+  	fx.rates = value.xchangeXtension.currentRates.rates;
+  	createCurrencyBox();
 	});
 }
 

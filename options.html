@@ -37,31 +37,51 @@
 
       <h3>Base Currency</h3>
       <label class="radio-container">Set automatically based on current URL (default)
-        <input type="radio" checked="checked" name="radioBaseCurrency">
+        <input type="radio" checked="checked" name="radioBaseCurrency" value="auto">
         <span class="checkmark"></span>
       </label>
       <label class="radio-container">Set the base currency for all sites to:
-        <input type="radio" name="radioBaseCurrency">
+        <input type="radio" name="radioBaseCurrency" value="manual">
         <span class="checkmark"></span>
       </label>
       <div>
+        <select>
+          <option>USD</option>
+          <option>CAD</option>
+          <option>VND</option>
+        </select>
         <input type="text" id="inputBaseCurrency" value="USD">
         <p class="input-note">type in currency abbreviation</p>
       </div>
 
       <h3>Currencies To Display</h3>
       <div>
+        <select>
+          <option>USD</option>
+          <option>CAD</option>
+          <option>VND</option>
+        </select>
+        <select>
+          <option>USD</option>
+          <option>CAD</option>
+          <option>VND</option>
+        </select>
+        <select>
+          <option>USD</option>
+          <option>CAD</option>
+          <option>VND</option>
+        </select>
         <input type="text" id="inputDisplayCurrency" value="CAD, VND">
         <p class="input-note">3 currencies maximum not including base currency, separated by commas</p>
       </div>
 
       <h3>Filtered List</h3>
       <label class="radio-container">Run on all sites
-        <input type="radio" checked="checked" name="radioList">
+        <input type="radio" checked="checked" name="radioFilteredList" value="all">
         <span class="checkmark"></span>
       </label>
       <label class="radio-container">Run only on these sites:
-        <input type="radio" name="radioList">
+        <input type="radio" name="radioFilteredList" value="some">
         <span class="checkmark"></span>
       </label>
       <div class="filtered-list-box">

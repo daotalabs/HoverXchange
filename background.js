@@ -14,6 +14,7 @@ chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
 /*
 	Listen for tab updates, get and update exchange rates in Chrome sync storage.
 */
+// TODO: create default options settings
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 	if (changeInfo.status == 'complete' && tab.active) {
 		var ratesData = 'sample';
@@ -28,8 +29,6 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 					function(response) {
             var current_rates = '{"currentRates" : ' + JSON.stringify(response) + '}';
             chrome.storage.sync.set({'xchangeXtension': JSON.parse(current_rates)}, function() {
-            //  chrome.storage.sync.get(function(result){console.log(result)})
-		    		//	chrome.storage.sync.set({'current_rates': response}, function() {
 							console.log('Saving current rates..' + JSON.stringify(response));
 						})
 					});
