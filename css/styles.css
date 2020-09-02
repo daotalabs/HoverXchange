@@ -17,10 +17,10 @@
 	position: absolute;
 	z-index: 10000;
 	/* for the tooltip box */
-	width: 120px;
-	bottom: 100%;
-	height: 50px;
-	margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+	width: auto;
+	bottom: auto;
+	height: auto;
+	margin-left: auto; 
 }
 
 /* for the arrow */
