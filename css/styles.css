@@ -17,10 +17,7 @@
 	position: absolute;
 	z-index: 10000;
 	/* for the tooltip box */
-	width: auto;
-	bottom: auto;
-	height: auto;
-	margin-left: auto; 
+	margin-left: -40px; 
 }
 
 /* for the arrow */
