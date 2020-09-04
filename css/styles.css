@@ -201,9 +201,16 @@ input:checked + .slider:before {
 	background: white;
 }
 
-/*
-	Filtered list box
-*/
+/*  Selector */
+.singleCurrencySelector {
+  width: 100px;
+}
+
+.multiCurrencySelector {
+  width: 240px;
+}
+
+/*  Filtered list box */
 .filtered-list-box {
 	margin-left: 35px;
 	border:1px solid #000;

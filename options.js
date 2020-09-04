@@ -1,3 +1,13 @@
+/*
+  Initialize dropdowns with Select2.
+*/
+$(document).ready(function() {
+    $('.singleCurrencySelector').select2();
+    $('.multiCurrencySelector').select2({
+      maximumSelectionLength: '3'
+    });
+});
+
 var optionsBody = document.getElementById('optionsBody');
 var saveButton = document.getElementById('saveButton');
 
