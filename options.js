@@ -1,6 +1,11 @@
 /*
-  Initialize dropdowns with Select2.
+  Load and initialize dropdowns with Select2.
 */
+$(function(){
+  $(".singleCurrencySelector").load("currencies.html");
+  $(".multiCurrencySelector").load("currencies.html");
+});
+
 $(document).ready(function() {
     $('.singleCurrencySelector').select2();
     $('.multiCurrencySelector').select2({
