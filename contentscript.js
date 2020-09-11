@@ -108,7 +108,7 @@ function getFxAmounts(amount, callback){
 		fxCurrencies[key] = formatFx(key, fx.convert(amount, {from: websiteCurrency, to: key}));
 		// console.log(key, fxCurrencies[key]);
 	});
-  	callback(fxCurrencies);
+	callback(fxCurrencies);
 }
 
 /*
@@ -138,13 +138,13 @@ function displayCurrencyBox(fxCurrencies) {
 */
 function formatFx(fxCurrency, fxAmount) {
 	switch(fxCurrency) {
-	  	case 'CAD':
-	    	return accounting.formatMoney(fxAmount,[symbol = 'C$'],[precision = 2],[thousand = ','],[decimal = '.'],[format = '%s%v']);
-	    break;
-	    case 'VND':
-	    	return accounting.formatMoney(fxAmount,[symbol = '₫'],[precision = 0],[thousand = ','],[decimal = '.'],[format = '%s%v']);
-	    break;
-	  	default:
-	    	return accounting.formatMoney(fxAmount,[symbol = 'US$'],[precision = 2],[thousand = ','],[decimal = '.'],[format = '%s%v']);
+  	case 'CAD':
+    	return accounting.formatMoney(fxAmount,[symbol = 'C$'],[precision = 2],[thousand = ','],[decimal = '.'],[format = '%s%v']);
+    break;
+    case 'VND':
+    	return accounting.formatMoney(fxAmount,[symbol = '₫'],[precision = 0],[thousand = ','],[decimal = '.'],[format = '%s%v']);
+    break;
+  	default:
+    	return accounting.formatMoney(fxAmount,[symbol = 'US$'],[precision = 2],[thousand = ','],[decimal = '.'],[format = '%s%v']);
 	}
 }

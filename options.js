@@ -24,14 +24,14 @@ function populateCurrencyOptions() {
 
 function saveSettings() {
   /*
-    Listen and save enable/disable switch setting.
+    Listen and save enabled setting.
   */
   $('.switch-input').change(function() {
     var checked = $(this).is(':checked');
-    chrome.storage.sync.get('xchangeXtension', function(value) {
-      value.xchangeXtension.enabled = checked;
-      chrome.storage.sync.set({'xchangeXtension': value.xchangeXtension}, function() {
-        console.log('Saving new xchangeXtension.enabled: ' + JSON.stringify(value.xchangeXtension.enabled));
+    chrome.storage.sync.get('xchangeXtensionSettings', function(value) {
+      value.xchangeXtensionSettings.enabled = checked;
+      chrome.storage.sync.set({'xchangeXtensionSettings': value.xchangeXtensionSettings}, function() {
+        console.log('Saving new xchangeXtensionSettings.enabled: ' + JSON.stringify(value.xchangeXtensionSettings.enabled));
       })
     });
   });
@@ -41,10 +41,10 @@ function saveSettings() {
   */
   $('input[name="radioGetRates"]').change(function() {
     var updateFrequency = $(this).val();
-    chrome.storage.sync.get('xchangeXtension', function(value) {
-      value.xchangeXtension.updateFrequency = updateFrequency;
-      chrome.storage.sync.set({'xchangeXtension': value.xchangeXtension}, function() {
-        console.log('Saving new xchangeXtension.updateFrequency: ' + JSON.stringify(value.xchangeXtension.updateFrequency));
+    chrome.storage.sync.get('xchangeXtensionSettings', function(value) {
+      value.xchangeXtensionSettings.updateFrequency = updateFrequency;
+      chrome.storage.sync.set({'xchangeXtensionSettings': value.xchangeXtensionSettings}, function() {
+        console.log('Saving new xchangeXtensionSettings.updateFrequency: ' + JSON.stringify(value.xchangeXtensionSettings.updateFrequency));
       })
     });
   });
@@ -54,10 +54,10 @@ function saveSettings() {
   */
   $('input[name="radioBaseCurrency"]').change(function() {
     var setBaseCurrency = $(this).val();
-    chrome.storage.sync.get('xchangeXtension', function(value) {
-      value.xchangeXtension.setBaseCurrency = setBaseCurrency;
-      chrome.storage.sync.set({'xchangeXtension': value.xchangeXtension}, function() {
-        console.log('Saving new xchangeXtension.setBaseCurrency: ' + JSON.stringify(value.xchangeXtension.setBaseCurrency));
+    chrome.storage.sync.get('xchangeXtensionSettings', function(value) {
+      value.xchangeXtensionSettings.setBaseCurrency = setBaseCurrency;
+      chrome.storage.sync.set({'xchangeXtensionSettings': value.xchangeXtensionSettings}, function() {
+        console.log('Saving new xchangeXtensionSettings.setBaseCurrency: ' + JSON.stringify(value.xchangeXtensionSettings.setBaseCurrency));
       })
     });
   });
@@ -67,10 +67,10 @@ function saveSettings() {
   */
   $('input[name="radioFilteredList"]').change(function() {
     var setFilteredList = $(this).val();
-    chrome.storage.sync.get('xchangeXtension', function(value) {
-      value.xchangeXtension.setFilteredList = setFilteredList;
-      chrome.storage.sync.set({'xchangeXtension': value.xchangeXtension}, function() {
-        console.log('Saving new xchangeXtension.setFilteredList: ' + JSON.stringify(value.xchangeXtension.setFilteredList));
+    chrome.storage.sync.get('xchangeXtensionSettings', function(value) {
+      value.xchangeXtensionSettings.setFilteredList = setFilteredList;
+      chrome.storage.sync.set({'xchangeXtensionSettings': value.xchangeXtensionSettings}, function() {
+        console.log('Saving new xchangeXtensionSettings.setFilteredList: ' + JSON.stringify(value.xchangeXtensionSettings.setFilteredList));
       })
     });
   });
