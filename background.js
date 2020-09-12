@@ -34,6 +34,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         value.xchangeXtensionSettings.enabled = true;
         value.xchangeXtensionSettings.updateFrequency = '30';
         value.xchangeXtensionSettings.setBaseCurrency = 'manual';
+        value.xchangeXtensionSettings.baseCurrency = 'USD';
+        value.xchangeXtensionSettings.displayCurrency = ['CAD', 'VND'];
         value.xchangeXtensionSettings.setFilteredList = 'all';
         saveSyncStorage(value.xchangeXtensionSettings)
       }
