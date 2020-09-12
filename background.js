@@ -16,30 +16,28 @@ chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
 */
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   if (changeInfo.status == 'complete' && tab.active) {
-    chrome.storage.local.get('xchangeXtensionRates', function(value) {
-      // console.log('xchangeXtensionRates is .. ' + JSON.stringify(value.xchangeXtensionRates));
-      if (value.xchangeXtensionRates == null || Object.keys(value.xchangeXtensionRates).length == 0) {
-        // Save rates in local storage
-        value.xchangeXtensionRates = {};
-        if (isRatesExpired(value.xchangeXtensionRates.currentRates)) {
-          getNewRates(value.xchangeXtensionRates, saveLocalStorage);
-        }
+    chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
+      if (value.xchangeXtensionOptions == null || Object.keys(value.xchangeXtensionOptions).length == 0) {
+        // Save default options in sync storage
+        value.xchangeXtensionOptions = {};
+        value.xchangeXtensionOptions.enabled = true;
+        value.xchangeXtensionOptions.updateFrequency = '30';
+        value.xchangeXtensionOptions.displayCurrencies = ['USD', 'CAD', 'VND'];
+        value.xchangeXtensionOptions.setFilteredList = 'all';
+        saveSyncStorage(value.xchangeXtensionOptions)
       }
     })
 
-    chrome.storage.sync.get('xchangeXtensionSettings', function(value) {
-      if (value.xchangeXtensionSettings == null || Object.keys(value.xchangeXtensionSettings).length == 0) {
-        // Save default settings in sync storage
-        value.xchangeXtensionSettings = {};
-        value.xchangeXtensionSettings.enabled = true;
-        value.xchangeXtensionSettings.updateFrequency = '30';
-        value.xchangeXtensionSettings.setBaseCurrency = 'manual';
-        value.xchangeXtensionSettings.baseCurrency = 'USD';
-        value.xchangeXtensionSettings.displayCurrency = ['CAD', 'VND'];
-        value.xchangeXtensionSettings.setFilteredList = 'all';
-        saveSyncStorage(value.xchangeXtensionSettings)
+    chrome.storage.local.get('xchangeXtensionRates', function(value) {
+      // console.log('xchangeXtensionRates is .. ' + JSON.stringify(value.xchangeXtensionRates));
+      if (value.xchangeXtensionRates == null || Object.keys(value.xchangeXtensionRates).length == 0) {
+        value.xchangeXtensionRates = {};
       }
-    });
+      // Save rates in local storage
+      if (isRatesExpired(value.xchangeXtensionRates.currentRates)) {
+        getNewRates(value.xchangeXtensionRates, saveLocalStorage);
+      }
+    })
   }
 })
 
@@ -71,14 +69,14 @@ function saveLocalStorage(xchangeXtensionRates) {
 /*
   Save to Chrome sync storage.
 */
-function saveSyncStorage(xchangeXtensionSettings) {
-  chrome.storage.sync.set({'xchangeXtensionSettings': xchangeXtensionSettings}, function() {
-    // console.log('Saving to sync storage..' + JSON.stringify(xchangeXtensionSettings));
+function saveSyncStorage(xchangeXtensionOptions) {
+  chrome.storage.sync.set({'xchangeXtensionOptions': xchangeXtensionOptions}, function() {
+    // console.log('Saving to sync storage..' + JSON.stringify(xchangeXtensionOptions));
   })
 }
 
 /*
-  Helper function to check if current rates in storage is old.
+  Check if current rates in storage is old.
 */
 function isRatesExpired(currentRates) {
   if (currentRates == null || currentRates.timestamp == null) {
@@ -87,5 +85,13 @@ function isRatesExpired(currentRates) {
   var currentRatesDate = new Date(currentRates.timestamp * 1000);
   var currentDate = new Date();
   currentDate.setHours(0,0,0,0);
-  return (currentRatesDate < currentDate);
+  chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
+    var updateFrequency = value.xchangeXtensionOptions.updateFrequency;
+    if (updateFrequency == null) {
+      console.warn('Misisng updateFrequency')
+      return (currentRatesDate < currentDate);
+    } else {
+      return ((currentRatesDate + parseInt(updateFrequency)) < currentDate);
+    }
+  });
 }
