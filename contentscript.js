@@ -144,9 +144,8 @@ function displayCurrencyBox(fxCurrencies) {
 	var exchangeBoxStr = '<div id="xchangeBox">';
 	Object.keys(fxCurrencies).forEach(function(key) {
 		exchangeBoxStr = exchangeBoxStr + '<span class="currency">' +
-											fxCurrencies[key] +
-							  			  '</span>' +
-							  			  '<br>';
+										 fxCurrencies[key] + '</span>' +
+							  		 '<br>';
 	});
 	exchangeBoxStr = exchangeBoxStr + '</div>';
 	exchangeBoxEl.innerHTML = exchangeBoxStr;
@@ -163,8 +162,8 @@ function displayCurrencyBox(fxCurrencies) {
 */
 function formatFx(displayCurrency, fxAmount) {
 	switch(displayCurrency) {
-    case 'VND':
-    	return accounting.formatMoney(fxAmount,[symbol = displayCurrency + ' '],[precision = 0],[thousand = '.'],[decimal = ','],[format = '%s%v']);
+		case 'VND':
+			return accounting.formatMoney(fxAmount,[symbol = displayCurrency + ' '],[precision = 0],[thousand = '.'],[decimal = ','],[format = '%s%v']);
 		default:
 			return accounting.formatMoney(fxAmount,[symbol = displayCurrency + ' '],[precision = 2],[thousand = ','],[decimal = '.'],[format = '%s%v']);
 	}

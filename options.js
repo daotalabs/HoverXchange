@@ -100,7 +100,7 @@ function getDisplayCurrencies(callback) {
     chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
       if (value.xchangeXtensionOptions == null || Object.keys(value.xchangeXtensionOptions).length == 0) {
         console.warn('Missing sync settings, returning empty currencies');
-        callback('',[]);
+        callback([]);
       } else {
         // console.log('Getting sync storage: ' + value.xchangeXtensionOptions.baseCurrency + ", " + value.xchangeXtensionOptions.displayCurrency);
         callback(value.xchangeXtensionOptions.displayCurrencies);
