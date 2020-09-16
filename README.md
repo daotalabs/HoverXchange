@@ -45,11 +45,12 @@ Send pull requests. Feel free to implement the features listed in Future Develop
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
 
 ## Authors
 
 * **Viet Dao**
+* **Lan Dao**
 
 ## License
 
@@ -59,3 +60,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * [Open Exchange Rates API](https://openexchangerates.org/)
 * [accounting.js](http://openexchangerates.github.io/accounting.js/#documentation)
 * [money.js](http://openexchangerates.github.io/money.js/#basic-install)
+* [Select2](https://select2.org)
