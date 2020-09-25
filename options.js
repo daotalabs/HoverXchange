@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  getDisplayCurrencies(populateCurrencyOptions);
+  getSyncOptions(populateOptions);
   saveOptions();
 });
 
@@ -9,15 +9,18 @@ var saveButton = document.getElementById('saveButton');
 /*
   Load and initialize dropdowns with Select2.
 */
-function populateCurrencyOptions(displayCurrencies) {
+function populateOptions(enabled, updateFrequency, displayCurrencies, setFilteredList) {
   // TODO: load options from separate file
   // $('.singleCurrencySelector').load("currencies.html");
   // $('.multiCurrencySelector').load("currencies.html");
   // console.log($('.multiCurrencySelector').prop('outerHTML'));
+  $('.switch-input').prop('checked', enabled);
+  $('input[name="radioGetRates"][value=' + updateFrequency + ']').prop('checked', true);
   $('.multiCurrencySelector').select2({
     maximumSelectionLength: '3'
   });
   $('.multiCurrencySelector').val(displayCurrencies).trigger('change');
+  $('input[name="radioFilteredList"][value=' + setFilteredList + ']').prop('checked', true);
 }
 
 function saveOptions() {
@@ -93,18 +96,21 @@ function saveOptions() {
 }
 
 /*
-  Wait 500ms for sync storage to be initialized before getting currencies.
+  Wait xx ms for sync storage to be initialized before getting currencies.
 */
-function getDisplayCurrencies(callback) {
+function getSyncOptions(callback) {
   setTimeout(function () {
     chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
       if (value.xchangeXtensionOptions == null || Object.keys(value.xchangeXtensionOptions).length == 0) {
-        console.warn('Missing sync settings, returning empty currencies');
-        callback([]);
+        console.warn('Missing sync options, populating defaults.');
+        callback(true, '30', ['USD', 'VND', 'CAD'], 'all');
       } else {
         // console.log('Getting sync storage: ' + value.xchangeXtensionOptions.baseCurrency + ", " + value.xchangeXtensionOptions.displayCurrency);
-        callback(value.xchangeXtensionOptions.displayCurrencies);
+        callback(value.xchangeXtensionOptions.enabled,
+                value.xchangeXtensionOptions.updateFrequency,
+                value.xchangeXtensionOptions.displayCurrencies,
+                value.xchangeXtensionOptions.setFilteredList);
       }
     })
-  }, 500);
+  }, 0);
 }
