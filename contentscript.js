@@ -2,7 +2,7 @@ var VND = 'VND';
 var USD = 'USD';
 var CAD = 'CAD';
 var EUR = 'EUR';
-var websiteCurrency = 'USD';
+var websiteCurrency = USD;
 var fxCurrencies = {};
 var displayCurrencies = [];
 
@@ -110,7 +110,7 @@ function createCurrencyBox() {
 	$(':contains("€"):not(:has(:contains("€"))), :contains("EUR"):not(:has(:contains("EUR"))), :contains("EURO"):not(:has(:contains("EURO"))), :contains("Euro"):not(:has(:contains("Euro")))').filter(function() {
 		return eurPreRegex.test($(this).text()) || eurSubRegex.test($(this).text());
 	}).hover(function() {
-		var amount = accounting.unformat($(this).text());
+		var amount = accounting.unformat($(this).text(), ',');
 		// console.log(amount + '; regex tested: ' + $(this).text());
 		getFxAmounts(amount, EUR, displayCurrencyBox)
 	}, function() {
@@ -192,6 +192,8 @@ function displayCurrencyBox(fxCurrencies, baseCurrency) {
 */
 function formatFx(displayCurrency, fxAmount) {
 	switch(displayCurrency) {
+		case 'EUR':
+			return accounting.formatMoney(fxAmount,[symbol = displayCurrency + ' '],[precision = 2],[thousand = '.'],[decimal = ','],[format = '%s%v']);
 		case 'VND':
 			return accounting.formatMoney(fxAmount,[symbol = displayCurrency + ' '],[precision = 0],[thousand = '.'],[decimal = ','],[format = '%s%v']);
 		default:
