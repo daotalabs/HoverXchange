@@ -10,8 +10,18 @@ var displayCurrencies = [];
 	Regexes for currency search. https://regex101.com for help.
 */
 var dollarOnlyRegex = /^[^0-9]*\$-?\s?(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?[^0-9]*$/i;
-var dongPreOnlyRegex = /^[^0-9]*(?:\₫|VND|VNĐ)\s?(?:\d+|\d{1,3}(?:.\d{3})+)(?:(\.|,)\d+)?[^0-9]*$/i;
-var dongSubOnlyRegex = /^[^0-9]*(?:\d+|\d{1,3}(?:.\d{3})+)(?:(\.|,)\d+)?\s?(?:\₫|VND|VNĐ)[^0-9]*$/i;
+
+var usdPreRegex = /^[^0-9]*(?:\$|USD)\s?(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?[^0-9]*$/i;
+var usdSubRegex = /^[^0-9]*(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?\s?(?:USD)[^0-9]*$/i;
+
+var cadPreRegex = /^[^0-9]*(?:C\$|CA\$|CDN\$|CAD|CDN)\s?(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?[^0-9]*$/i;
+var cadSubRegex = /^[^0-9]*(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?\s?(?:CAD|CDN|\$ CA|\$CA)[^0-9]*$/i;
+
+var eurPreRegex = /^[^0-9]*(?:\€|EUR|Eur)\s?(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?[^0-9]*$/i;
+var eurSubRegex = /^[^0-9]*(?:\d+|\d{1,3}(?:,\d{3})+)(?:(\.|,)\d+)?\s?(?:\€|EUR|EURO|Euro)[^0-9]*$/i;
+
+var vndPreRegex = /^[^0-9]*(?:\₫|VND|VNĐ)\s?(?:\d+|\d{1,3}(?:.\d{3})+)(?:(\.|,)\d+)?[^0-9]*$/i;
+var vndSubRegex = /^[^0-9]*(?:\d+|\d{1,3}(?:.\d{3})+)(?:(\.|,)\d+)?\s?(?:\₫|VND|VNĐ)[^0-9]*$/i;
 
 /*
 	Get mouse pointer position to show xchangeBox.
@@ -88,7 +98,7 @@ function createCurrencyBox() {
 		return;
 	}
 	$(':contains("₫"):not(:has(:contains("₫"))), :contains("VND"):not(:has(:contains("VND"))), :contains("VNĐ"):not(:has(:contains("VNĐ")))').filter(function() {
-		return dongPreOnlyRegex.test($(this).text()) || dongSubOnlyRegex.test($(this).text());
+		return vndPreRegex.test($(this).text()) || vndSubRegex.test($(this).text());
 	}).hover(function() {
 		var amount = accounting.unformat($(this).text(), ',');
 		// console.log(amount + '; regex tested: ' + $(this).text());
@@ -97,12 +107,48 @@ function createCurrencyBox() {
 		$('#xchangeBox').remove();
 	});
 
+	$(':contains("€"):not(:has(:contains("€"))), :contains("EUR"):not(:has(:contains("EUR"))), :contains("EURO"):not(:has(:contains("EURO"))), :contains("Euro"):not(:has(:contains("Euro")))').filter(function() {
+		return eurPreRegex.test($(this).text()) || eurSubRegex.test($(this).text());
+	}).hover(function() {
+		var amount = accounting.unformat($(this).text());
+		// console.log(amount + '; regex tested: ' + $(this).text());
+		getFxAmounts(amount, EUR, displayCurrencyBox)
+	}, function() {
+		$('#xchangeBox').remove();
+	});
+
+	$(':contains("CAD"):not(:has(:contains("CAD"))), :contains("CDN"):not(:has(:contains("CDN")))').filter(function() {
+		return cadPreRegex.test($(this).text()) || cadSubRegex.test($(this).text());
+	}).hover(function() {
+		var amount = accounting.unformat($(this).text());
+		// console.log(amount + '; regex tested: ' + $(this).text());
+		getFxAmounts(amount, CAD, displayCurrencyBox)
+	}, function() {
+		$('#xchangeBox').remove();
+	});
+
+	$(':contains("USD"):not(:has(:contains("USD")))').filter(function() {
+		return usdPreRegex.test($(this).text()) || usdSubRegex.test($(this).text());
+	}).hover(function() {
+		var amount = accounting.unformat($(this).text());
+		// console.log(amount + '; regex tested: ' + $(this).text());
+		getFxAmounts(amount, USD, displayCurrencyBox)
+	}, function() {
+		$('#xchangeBox').remove();
+	});
+
+	var dollarCurrency = websiteCurrency;
 	$(':contains("$"):not(:has(:contains("$")))').filter(function() {
+		// filter for currencies that use $ symbol, such as:
+		if ($(this).is(':contains("C$"), :contains("CA$"), :contains("CDN$"), :contains("$CA"), :contains("$ CA")')) {
+			dollarCurrency = CAD;
+			return cadPreRegex.test($(this).text()) || cadSubRegex.test($(this).text());
+		}
 		return dollarOnlyRegex.test($(this).text());
 	}).hover(function() {
 		var amount = accounting.unformat($(this).text());
-		console.log(amount + '; regex tested: ' + $(this).text());
-		getFxAmounts(amount, websiteCurrency, displayCurrencyBox)
+		// console.log(amount + '; regex tested: ' + $(this).text());
+		getFxAmounts(amount, dollarCurrency, displayCurrencyBox)
 	}, function() {
 		$('#xchangeBox').remove();
 	});
