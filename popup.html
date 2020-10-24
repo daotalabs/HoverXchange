@@ -2,12 +2,13 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="css/styles.css">
-  <link rel="stylesheet" type="text/css" href="css/popup.css">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js" defer></script>
+  <script src="popup.js"></script>
 </head>
 <body>
-  <div class="popup">
-    <!-- On/Off Switch -->
-    <div class="toggle-wrapper">
+  <div id="popup">
+    <div>
       <label class="switch">
         <input class="swtich-input" type="checkbox" checked>
         <span class="slider round"></span>
@@ -17,32 +18,20 @@
       </div>
     </div>
 
-    <!-- Checkbox -->
-    <div class="toggle-wrapper">
-      <label class="switch">
-        <input type="checkbox" checked>
-        <span class="slider round"></span>
-      </label>
-      <div class="toggle-text">
-        Run on this site
-      </div>
-    </div>
-
-    <!--  Dropdown Menu -->
-    <div class="dropdown">
+    <div>
       <div class="dropdown-text">
         Base currency is
       </div>
-      <select>
+      <select class="singleCurrencySelector">
         <option>USD</option>
         <option>CAD</option>
         <option>VND</option>
+        <option>EUR</option>
       </select>
     </div>
 
-    <!-- Cogwheel Button -->
     <div class="centered-container">
-      <hr> <!-- Draw a line -->
+      <hr>
       <div class="settings-button">
         <button>
           <settings-button>
