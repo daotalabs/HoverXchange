@@ -23,7 +23,6 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         value.xchangeXtensionOptions.enabled = true;
         value.xchangeXtensionOptions.updateFrequency = '30';
         value.xchangeXtensionOptions.displayCurrencies = ['USD', 'CAD', 'VND'];
-        value.xchangeXtensionOptions.setFilteredList = 'all';
         saveSyncStorage(value.xchangeXtensionOptions)
       }
     })
@@ -88,10 +87,21 @@ function isRatesExpired(currentRates) {
   chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
     var updateFrequency = value.xchangeXtensionOptions.updateFrequency;
     if (updateFrequency == null) {
-      console.warn('Misisng updateFrequency')
+      console.warn('Missing updateFrequency')
       return (currentRatesDate < currentDate);
     } else {
       return ((currentRatesDate + parseInt(updateFrequency)) < currentDate);
     }
   });
 }
+
+/*
+  Change icon upon message.
+*/
+chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
+  if (msg.action === 'makeGray') {
+    chrome.browserAction.setIcon({path: "/images/gray/favicon-32x32.png"});
+  } else {
+    chrome.browserAction.setIcon({path: "/images/favicon-32x32.png"});
+  }
+});

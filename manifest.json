@@ -1,7 +1,7 @@
 {
   "name": "xchange-xtension",
   "version": "1.0",
-  "description": "Convert between currencies on hover with current exchange rates",
+  "description": "Convert currencies on hover with current exchange rates",
   "permissions": [
     "activeTab",
     "tabs",
@@ -27,12 +27,13 @@
       ]
     }
   ],
-  "page_action": {
-    "default_popup": "popup.html",
+  "browser_action": {
     "default_icon": {
       "16": "images/favicon-16x16.png",
       "32": "images/favicon-32x32.png"
-    }
+    },
+    "default_title": "xchange-xtension",
+    "default_popup": "popup.html"
   },
   "icons": {
     "16": "images/favicon-16x16.png",

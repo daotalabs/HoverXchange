@@ -2,56 +2,40 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="css/styles.css">
-  <link rel="stylesheet" type="text/css" href="css/popup.css">
+  <script src="js-lib/jquery-3.5.1.min.js"></script>
+  <script src="popup.js"></script>
 </head>
 <body>
-  <div class="popup">
-    <!-- On/Off Switch -->
-    <div class="toggle-wrapper">
+  <div id="popup">
+    <div>
       <label class="switch">
-        <input class="swtich-input" type="checkbox" checked>
+        <input class="switch-input" type="checkbox" checked>
         <span class="slider round"></span>
       </label>
       <div class="toggle-text">
-        Enabled
+        Enabled on all sites
       </div>
     </div>
 
-    <!-- Checkbox -->
-    <div class="toggle-wrapper">
-      <label class="switch">
-        <input type="checkbox" checked>
-        <span class="slider round"></span>
-      </label>
-      <div class="toggle-text">
-        Run on this site
-      </div>
-    </div>
-
-    <!--  Dropdown Menu -->
-    <div class="dropdown">
-      <div class="dropdown-text">
-        Base currency is
-      </div>
-      <select>
+    <!-- <div>
+      <select class="singleCurrencySelector">
         <option>USD</option>
         <option>CAD</option>
         <option>VND</option>
+        <option>EUR</option>
       </select>
-    </div>
-
-    <!-- Cogwheel Button -->
-    <div class="centered-container">
-      <hr> <!-- Draw a line -->
-      <div class="settings-button">
-        <button>
-          <settings-button>
-            <img src="https://img.icons8.com/material-sharp/15/000000/settings.png" style="vertical-align: middle;"/>
-            <a href="options.html" class ="button" target="_blank">More Options</a>
-          </settings-button>
-        </button>
+      <div class="dropdown-text">
+        Base currency of current site
       </div>
-    </div>
+    </div> -->
+
+    <hr>
+    <button>
+      <settings-button>
+        <img src="https://img.icons8.com/material-sharp/15/000000/settings.png" style="vertical-align: middle;"/>
+        <a href="options.html" class ="button" target="_blank">More Options</a>
+      </settings-button>
+    </button>
   </div>
 </body>
 </html>
