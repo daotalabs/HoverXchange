@@ -37,7 +37,9 @@ function savePopupOptions() {
         // console.log('Storing enabled: ' + JSON.stringify(value.xchangeXtensionOptions.enabled));
       })
     });
-    // reload current site
-
+    // reload current page for enable switch to work
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
+    });
   });
 }
