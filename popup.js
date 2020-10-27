@@ -37,7 +37,15 @@ function savePopupOptions() {
         // console.log('Storing enabled: ' + JSON.stringify(value.xchangeXtensionOptions.enabled));
       })
     });
-    // reload current page for enable switch to work
+
+    // switch icon to gray if disabled
+    if (!checked) {
+      chrome.runtime.sendMessage({action: 'makeGray'});
+    } else {
+      chrome.runtime.sendMessage({action: 'makeBlue'});
+    }
+
+    // reload current page for enable switch to take effect
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
     });

@@ -34,6 +34,13 @@ function saveOptions() {
         // console.log('Storing enabled: ' + JSON.stringify(value.xchangeXtensionOptions.enabled));
       })
     });
+
+    // switch icon to gray if disabled
+    if (!checked) {
+      chrome.runtime.sendMessage({action: 'makeGray'});
+    } else {
+      chrome.runtime.sendMessage({action: 'makeBlue'});
+    }
   });
 
   /*

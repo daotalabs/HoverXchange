@@ -94,3 +94,14 @@ function isRatesExpired(currentRates) {
     }
   });
 }
+
+/*
+  Change icon upon message.
+*/
+chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
+  if (msg.action === 'makeGray') {
+    chrome.browserAction.setIcon({path: "/images/gray/favicon-32x32.png"});
+  } else {
+    chrome.browserAction.setIcon({path: "/images/favicon-32x32.png"});
+  }
+});
