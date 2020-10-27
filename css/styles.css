@@ -195,8 +195,8 @@ input:checked + .slider:before {
   ###### Popup ######
 */
 #popup {
-  height: auto;
-  width: 180px;
+	text-align: center;
+  width: 170px;
   font-size: 14px;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -240,21 +240,6 @@ hr {
 }
 
 /* Cogwheel Button */
-.centered-container { /*create an outer box containing the line and the button to make it easier to center at the bottom of popup */
-	height: 25px;
-	width: 180px; /*equals to the popup's width*/
-	position: relative;
-}
-
-.settings-button {
-	margin: 4px;
-	position: absolute;
-	top: 50%;
-	left: 65%;
-	transform: translate(-50%, -50%);
-	width: 180px;
-}
-
 settings-button:hover {
 	cursor: pointer;
 }

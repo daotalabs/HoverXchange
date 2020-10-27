@@ -9,7 +9,7 @@ var saveButton = document.getElementById('saveButton');
 /*
   Load and initialize dropdowns with Select2.
 */
-function populateOptions(enabled, updateFrequency, displayCurrencies, setFilteredList) {
+function populateOptions(enabled, updateFrequency, displayCurrencies) {
   // TODO: load options from separate file
   // $('.singleCurrencySelector').load("currencies.html");
   // $('.multiCurrencySelector').load("currencies.html");
@@ -20,7 +20,6 @@ function populateOptions(enabled, updateFrequency, displayCurrencies, setFiltere
     maximumSelectionLength: '3'
   });
   $('.multiCurrencySelector').val(displayCurrencies).trigger('change');
-  $('input[name="radioFilteredList"][value=' + setFilteredList + ']').prop('checked', true);
 }
 
 function saveOptions() {
@@ -32,7 +31,7 @@ function saveOptions() {
     chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
       value.xchangeXtensionOptions.enabled = checked;
       chrome.storage.sync.set({'xchangeXtensionOptions': value.xchangeXtensionOptions}, function() {
-        // console.log('Storing enabled: ' + JSON.stringify(value.xchangeXtensionOptions.enabled));
+        console.log('Storing enabled: ' + JSON.stringify(value.xchangeXtensionOptions.enabled));
       })
     });
   });
@@ -80,19 +79,6 @@ function saveOptions() {
       })
     });
   });
-
-  /*
-    Listen and save filtered list setting.
-  */
-  $('input[name="radioFilteredList"]').change(function() {
-    var setFilteredList = $(this).val();
-    chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
-      value.xchangeXtensionOptions.setFilteredList = setFilteredList;
-      chrome.storage.sync.set({'xchangeXtensionOptions': value.xchangeXtensionOptions}, function() {
-        // console.log('Storing setFilteredList: ' + JSON.stringify(value.xchangeXtensionOptions.setFilteredList));
-      })
-    });
-  });
 }
 
 /*
@@ -103,13 +89,12 @@ function getSyncOptions(callback) {
     chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
       if (value.xchangeXtensionOptions == null || Object.keys(value.xchangeXtensionOptions).length == 0) {
         console.warn('Missing sync options, populating defaults.');
-        callback(true, '30', ['USD', 'VND', 'CAD'], 'all');
+        callback(true, '30', ['USD', 'VND', 'CAD']);
       } else {
         // console.log('Getting sync storage: ' + value.xchangeXtensionOptions.baseCurrency + ", " + value.xchangeXtensionOptions.displayCurrency);
         callback(value.xchangeXtensionOptions.enabled,
-                value.xchangeXtensionOptions.updateFrequency,
-                value.xchangeXtensionOptions.displayCurrencies,
-                value.xchangeXtensionOptions.setFilteredList);
+                 value.xchangeXtensionOptions.updateFrequency,
+                 value.xchangeXtensionOptions.displayCurrencies);
       }
     })
   }, 0);
