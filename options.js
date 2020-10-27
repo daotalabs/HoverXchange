@@ -31,7 +31,7 @@ function saveOptions() {
     chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
       value.xchangeXtensionOptions.enabled = checked;
       chrome.storage.sync.set({'xchangeXtensionOptions': value.xchangeXtensionOptions}, function() {
-        console.log('Storing enabled: ' + JSON.stringify(value.xchangeXtensionOptions.enabled));
+        // console.log('Storing enabled: ' + JSON.stringify(value.xchangeXtensionOptions.enabled));
       })
     });
   });
@@ -50,26 +50,8 @@ function saveOptions() {
   });
 
   /*
-    Listen and save base currency settings.
+    Listen and save display currency settings.
   */
-  // $('input[name="radioBaseCurrency"]').change(function() {
-  //   var setBaseCurrency = $(this).val();
-  //   chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
-  //     value.xchangeXtensionOptions.setBaseCurrency = setBaseCurrency;
-  //     chrome.storage.sync.set({'xchangeXtensionOptions': value.xchangeXtensionOptions}, function() {
-  //       console.log('Storing setBaseCurrency: ' + JSON.stringify(value.xchangeXtensionOptions.setBaseCurrency));
-  //     })
-  //   });
-  // });
-  // $('.singleCurrencySelector').change(function() {
-  //   var baseCurrency = $(this).val();
-  //   chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
-  //     value.xchangeXtensionOptions.baseCurrency = baseCurrency;
-  //     chrome.storage.sync.set({'xchangeXtensionOptions': value.xchangeXtensionOptions}, function() {
-  //       console.log('Storing baseCurrency: ' + JSON.stringify(value.xchangeXtensionOptions.baseCurrency));
-  //     })
-  //   });
-  // });
   $('.multiCurrencySelector').change(function() {
     var displayCurrencies = $(this).val();
     chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
@@ -82,20 +64,18 @@ function saveOptions() {
 }
 
 /*
-  Wait xx ms for sync storage to be initialized before getting currencies.
+  Getting options from sync storage.
 */
 function getSyncOptions(callback) {
-  setTimeout(function () {
-    chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
-      if (value.xchangeXtensionOptions == null || Object.keys(value.xchangeXtensionOptions).length == 0) {
-        console.warn('Missing sync options, populating defaults.');
-        callback(true, '30', ['USD', 'VND', 'CAD']);
-      } else {
-        // console.log('Getting sync storage: ' + value.xchangeXtensionOptions.baseCurrency + ", " + value.xchangeXtensionOptions.displayCurrency);
-        callback(value.xchangeXtensionOptions.enabled,
-                 value.xchangeXtensionOptions.updateFrequency,
-                 value.xchangeXtensionOptions.displayCurrencies);
-      }
-    })
-  }, 0);
+  chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
+    if (value.xchangeXtensionOptions == null || Object.keys(value.xchangeXtensionOptions).length == 0) {
+      console.warn('Missing sync options, populating defaults.');
+      callback(true, '30', ['USD', 'VND', 'CAD']);
+    } else {
+      // console.log('Getting sync storage: ' + value.xchangeXtensionOptions.baseCurrency + ", " + value.xchangeXtensionOptions.displayCurrency);
+      callback(value.xchangeXtensionOptions.enabled,
+               value.xchangeXtensionOptions.updateFrequency,
+               value.xchangeXtensionOptions.displayCurrencies);
+    }
+  })
 }
