@@ -1,5 +1,5 @@
 {
-  "name": "xchange-xtension",
+  "name": "HoverXchange",
   "version": "1.0",
   "description": "Convert currencies on hover with current exchange rates",
   "permissions": [
@@ -32,7 +32,7 @@
       "16": "images/favicon-16x16.png",
       "32": "images/favicon-32x32.png"
     },
-    "default_title": "xchange-xtension",
+    "default_title": "HoverXchange",
     "default_popup": "popup.html"
   },
   "icons": {

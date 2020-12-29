@@ -28,10 +28,10 @@ function saveOptions() {
   */
   $('.switch-input').change(function() {
     var checked = $(this).is(':checked');
-    chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
-      value.xchangeXtensionOptions.enabled = checked;
-      chrome.storage.sync.set({'xchangeXtensionOptions': value.xchangeXtensionOptions}, function() {
-        // console.log('Storing enabled: ' + JSON.stringify(value.xchangeXtensionOptions.enabled));
+    chrome.storage.sync.get('HoverXchangeOptions', function(value) {
+      value.HoverXchangeOptions.enabled = checked;
+      chrome.storage.sync.set({'HoverXchangeOptions': value.HoverXchangeOptions}, function() {
+        // console.log('Storing enabled: ' + JSON.stringify(value.HoverXchangeOptions.enabled));
       })
     });
 
@@ -48,10 +48,10 @@ function saveOptions() {
   */
   $('input[name="radioGetRates"]').change(function() {
     var updateFrequency = $(this).val();
-    chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
-      value.xchangeXtensionOptions.updateFrequency = updateFrequency;
-      chrome.storage.sync.set({'xchangeXtensionOptions': value.xchangeXtensionOptions}, function() {
-        // console.log('Storing updateFrequency: ' + JSON.stringify(value.xchangeXtensionOptions.updateFrequency));
+    chrome.storage.sync.get('HoverXchangeOptions', function(value) {
+      value.HoverXchangeOptions.updateFrequency = updateFrequency;
+      chrome.storage.sync.set({'HoverXchangeOptions': value.HoverXchangeOptions}, function() {
+        // console.log('Storing updateFrequency: ' + JSON.stringify(value.HoverXchangeOptions.updateFrequency));
       })
     });
   });
@@ -61,10 +61,10 @@ function saveOptions() {
   */
   $('.multiCurrencySelector').change(function() {
     var displayCurrencies = $(this).val();
-    chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
-      value.xchangeXtensionOptions.displayCurrencies = displayCurrencies;
-      chrome.storage.sync.set({'xchangeXtensionOptions': value.xchangeXtensionOptions}, function() {
-        // console.log('Storing displayCurrencies: ' + JSON.stringify(value.xchangeXtensionOptions.displayCurrencies));
+    chrome.storage.sync.get('HoverXchangeOptions', function(value) {
+      value.HoverXchangeOptions.displayCurrencies = displayCurrencies;
+      chrome.storage.sync.set({'HoverXchangeOptions': value.HoverXchangeOptions}, function() {
+        // console.log('Storing displayCurrencies: ' + JSON.stringify(value.HoverXchangeOptions.displayCurrencies));
       })
     });
   });
@@ -74,15 +74,15 @@ function saveOptions() {
   Getting options from sync storage.
 */
 function getSyncOptions(callback) {
-  chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
-    if (value.xchangeXtensionOptions == null || Object.keys(value.xchangeXtensionOptions).length == 0) {
+  chrome.storage.sync.get('HoverXchangeOptions', function(value) {
+    if (value.HoverXchangeOptions == null || Object.keys(value.HoverXchangeOptions).length == 0) {
       console.warn('Missing sync options, populating defaults.');
       callback(true, '30', ['USD', 'VND', 'CAD']);
     } else {
-      // console.log('Getting sync storage: ' + value.xchangeXtensionOptions.baseCurrency + ", " + value.xchangeXtensionOptions.displayCurrency);
-      callback(value.xchangeXtensionOptions.enabled,
-               value.xchangeXtensionOptions.updateFrequency,
-               value.xchangeXtensionOptions.displayCurrencies);
+      // console.log('Getting sync storage: ' + value.HoverXchangeOptions.baseCurrency + ", " + value.HoverXchangeOptions.displayCurrency);
+      callback(value.HoverXchangeOptions.enabled,
+               value.HoverXchangeOptions.updateFrequency,
+               value.HoverXchangeOptions.displayCurrencies);
     }
   })
 }

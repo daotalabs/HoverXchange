@@ -1,5 +1,5 @@
 chrome.runtime.onInstalled.addListener(function() {
-  console.log("xchange-xtension installation completed.");
+  console.log("HoverXchangen installation completed.");
 });
 
 chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
@@ -16,25 +16,25 @@ chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
 */
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   if (changeInfo.status == 'complete' && tab.active) {
-    chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
-      if (value.xchangeXtensionOptions == null || Object.keys(value.xchangeXtensionOptions).length == 0) {
+    chrome.storage.sync.get('HoverXchangeOptions', function(value) {
+      if (value.HoverXchangeOptions == null || Object.keys(value.HoverXchangeOptions).length == 0) {
         // Save default options in sync storage
-        value.xchangeXtensionOptions = {};
-        value.xchangeXtensionOptions.enabled = true;
-        value.xchangeXtensionOptions.updateFrequency = '30';
-        value.xchangeXtensionOptions.displayCurrencies = ['USD', 'CAD', 'VND'];
-        saveSyncStorage(value.xchangeXtensionOptions)
+        value.HoverXchangeOptions = {};
+        value.HoverXchangeOptions.enabled = true;
+        value.HoverXchangeOptions.updateFrequency = '30';
+        value.HoverXchangeOptions.displayCurrencies = ['USD', 'CAD', 'VND'];
+        saveSyncStorage(value.HoverXchangeOptions)
       }
     })
 
-    chrome.storage.local.get('xchangeXtensionRates', function(value) {
-      // console.log('xchangeXtensionRates is .. ' + JSON.stringify(value.xchangeXtensionRates));
-      if (value.xchangeXtensionRates == null || Object.keys(value.xchangeXtensionRates).length == 0) {
-        value.xchangeXtensionRates = {};
+    chrome.storage.local.get('HoverXchangeRates', function(value) {
+      // console.log('HoverXchangeRates is .. ' + JSON.stringify(value.HoverXchangeRates));
+      if (value.HoverXchangeRates == null || Object.keys(value.HoverXchangeRates).length == 0) {
+        value.HoverXchangeRates = {};
       }
       // Save rates in local storage
-      if (isRatesExpired(value.xchangeXtensionRates.currentRates)) {
-        getNewRates(value.xchangeXtensionRates, saveLocalStorage);
+      if (isRatesExpired(value.HoverXchangeRates.currentRates)) {
+        getNewRates(value.HoverXchangeRates, saveLocalStorage);
       }
     })
   }
@@ -43,7 +43,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 /*
   Make an API call to Open Exchange Rates API for latest rates.
 */
-function getNewRates(xchangeXtensionRates, callback) {
+function getNewRates(HoverXchangeRates, callback) {
   $.get('https://openexchangerates.org/api/latest.json',
   {
     app_id: '68286f83188a46c696bff70ab8df2dce',
@@ -51,26 +51,26 @@ function getNewRates(xchangeXtensionRates, callback) {
   },
   function(response) {
     // console.log('Getting new rates.. ' + JSON.stringify(response));
-    xchangeXtensionRates.currentRates = response;
-    callback(xchangeXtensionRates);
+    HoverXchangeRates.currentRates = response;
+    callback(HoverXchangeRates);
   });
 }
 
 /*
   Save to Chrome local storage.
 */
-function saveLocalStorage(xchangeXtensionRates) {
-  chrome.storage.local.set({'xchangeXtensionRates': xchangeXtensionRates}, function() {
-    // console.log('Saving to local storage..' + JSON.stringify(xchangeXtensionRates));
+function saveLocalStorage(HoverXchangeRates) {
+  chrome.storage.local.set({'HoverXchangeRates': HoverXchangeRates}, function() {
+    // console.log('Saving to local storage..' + JSON.stringify(HoverXchangeRates));
   })
 }
 
 /*
   Save to Chrome sync storage.
 */
-function saveSyncStorage(xchangeXtensionOptions) {
-  chrome.storage.sync.set({'xchangeXtensionOptions': xchangeXtensionOptions}, function() {
-    // console.log('Saving to sync storage..' + JSON.stringify(xchangeXtensionOptions));
+function saveSyncStorage(HoverXchangeOptions) {
+  chrome.storage.sync.set({'HoverXchangeOptions': HoverXchangeOptions}, function() {
+    // console.log('Saving to sync storage..' + JSON.stringify(HoverXchangeOptions));
   })
 }
 
@@ -84,8 +84,8 @@ function isRatesExpired(currentRates) {
   var currentRatesDate = new Date(currentRates.timestamp * 1000);
   var currentDate = new Date();
   currentDate.setHours(0,0,0,0);
-  chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
-    var updateFrequency = value.xchangeXtensionOptions.updateFrequency;
+  chrome.storage.sync.get('HoverXchangeOptions', function(value) {
+    var updateFrequency = value.HoverXchangeOptions.updateFrequency;
     if (updateFrequency == null) {
       console.warn('Missing updateFrequency')
       return (currentRatesDate < currentDate);
