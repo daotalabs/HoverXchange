@@ -14,13 +14,13 @@ function populatePopupOptions(enabled) {
   Get enabled setting from sync storage.
 */
 function getSyncPopupOptions(callback) {
-  chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
-    if (value.xchangeXtensionOptions == null || Object.keys(value.xchangeXtensionOptions).length == 0) {
+  chrome.storage.sync.get('HoverXchangeOptions', function(value) {
+    if (value.HoverXchangeOptions == null || Object.keys(value.HoverXchangeOptions).length == 0) {
       console.warn('Missing sync options, populating defaults.');
       callback(true);
     } else {
-      // console.log('Getting enabled: ' + value.xchangeXtensionOptions.enabled);
-      callback(value.xchangeXtensionOptions.enabled);
+      // console.log('Getting enabled: ' + value.HoverXchangeOptions.enabled);
+      callback(value.HoverXchangeOptions.enabled);
     }
   })
 }
@@ -31,10 +31,10 @@ function savePopupOptions() {
   */
   $('.switch-input').change(function() {
     var checked = $(this).is(':checked');
-    chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
-      value.xchangeXtensionOptions.enabled = checked;
-      chrome.storage.sync.set({'xchangeXtensionOptions': value.xchangeXtensionOptions}, function() {
-        // console.log('Storing enabled: ' + JSON.stringify(value.xchangeXtensionOptions.enabled));
+    chrome.storage.sync.get('HoverXchangeOptions', function(value) {
+      value.HoverXchangeOptions.enabled = checked;
+      chrome.storage.sync.set({'HoverXchangeOptions': value.HoverXchangeOptions}, function() {
+        // console.log('Storing enabled: ' + JSON.stringify(value.HoverXchangeOptions.enabled));
       })
     });
 

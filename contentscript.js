@@ -36,12 +36,12 @@ $(document).mousemove(function(e) {
 /*
 	Check if extension is enabled before running anything.
 */
-chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
-	if (value.xchangeXtensionOptions == null || Object.keys(value.xchangeXtensionOptions).length == 0) {
+chrome.storage.sync.get('HoverXchangeOptions', function(value) {
+	if (value.HoverXchangeOptions == null || Object.keys(value.HoverXchangeOptions).length == 0) {
 		console.error('Missing sync settings, stopping..');
 		return;
 	}
-	if (value.xchangeXtensionOptions.enabled) {
+	if (value.HoverXchangeOptions.enabled) {
 		getDisplayCurrencies();
 		getWebsiteCurrency(getExchangeRates);
 	}
@@ -51,11 +51,11 @@ chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
 	Get currencies from sync storage.
 */
 function getDisplayCurrencies() {
-	chrome.storage.sync.get('xchangeXtensionOptions', function(value) {
-		if (value.xchangeXtensionOptions == null || Object.keys(value.xchangeXtensionOptions).length == 0) {
+	chrome.storage.sync.get('HoverXchangeOptions', function(value) {
+		if (value.HoverXchangeOptions == null || Object.keys(value.HoverXchangeOptions).length == 0) {
 			console.error('Missing sync settings, stopping..');
 		} else {
-			displayCurrencies = value.xchangeXtensionOptions.displayCurrencies;
+			displayCurrencies = value.HoverXchangeOptions.displayCurrencies;
 			displayCurrencies.forEach(function (displayCurrency, index, array) {
 				fxCurrencies[displayCurrency] = '0';
 			});
@@ -83,9 +83,9 @@ function getWebsiteCurrency(callback) {
 	Get exchange rates from sync storage and display currency box.
 */
 function getExchangeRates() {
-	chrome.storage.local.get('xchangeXtensionRates', function(value) {
-    fx.base = value.xchangeXtensionRates.currentRates.base;
-  	fx.rates = value.xchangeXtensionRates.currentRates.rates;
+	chrome.storage.local.get('HoverXchangeRates', function(value) {
+    fx.base = value.HoverXchangeRates.currentRates.base;
+  	fx.rates = value.HoverXchangeRates.currentRates.rates;
 	});
 	createCurrencyBox();
 }
